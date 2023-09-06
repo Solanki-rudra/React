@@ -1,0 +1,29 @@
+/* body{
+  background-color: #313131;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+}
+.row{
+  display: flex;
+}
+.col{
+  display: flex;
+  flex-direction: column;
+}
+.btn{
+  padding: 30px 50px;
+  cursor: pointer;
+  font-size: 30px;
+  color: white;
+  border: 5px solid white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 5px rgba(46, 46, 46, 0.982) ;
+  background-color: green;
+  margin: 10px;
+}
+div{
+  color: white;
+  font-size: 30px;
+} */
