@@ -6,7 +6,11 @@ import './App.css'
 // import Event from './Events.js'
 // import EventHandling from './components/EventHandling'
 // import AllEvents from './components/AllEvents'
-import DataFetch from './components/PractiseHooks'
+// import DataFetch from './components/PractiseHooks'
+
+////07-sept
+import Practice from './07-sept/useStack'
+
 
 function App() {
   // const getData =(name)=>{
@@ -28,7 +32,8 @@ function App() {
         {/* <Event /> */}
         {/* <EventHandling /> */}
         {/* <AllEvents />  */}
-        <DataFetch />
+        {/* <DataFetch /> */}
+        <Practice />
       </header>
   );
 }
