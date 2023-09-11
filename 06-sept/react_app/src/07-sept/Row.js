@@ -10,7 +10,6 @@ function Row({funName, param, text, varName}) {
     </div>
   )
 }
-
 export default Row
 
 export function Row2 () {
@@ -50,11 +49,15 @@ export function List () {
 
     const listAdder = () => {
         setArr([...arr, item])
+        // setItem('')
+        // document.querySelector('input').value = '';
     }
     return(
         <>
             <ul>
                 {arr.map((val,ind) => 
+                // You are always using key={0} for each list item. This means that the key value remains constant, and React can still differentiate between the elements because it knows that there's only one element with a key of 0. Since the structure of your list doesn't change, React can track and update it efficiently.
+                //     (<li key={0}>{val}</li>)
                     (<li key={ind}>{val}</li>)
                 )}
             </ul>

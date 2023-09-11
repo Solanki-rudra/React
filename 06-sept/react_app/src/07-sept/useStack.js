@@ -25,7 +25,7 @@ function Practice() {
     }
   return (
     <>
-        {/* <div>
+        <div>
           <button className="btn" onClick={() => adder(-1)}>-</button>
           <span className='btn'>{count}</span>
           <button className="btn" onClick={() => adder(1)}>+</button>
@@ -41,9 +41,9 @@ function Practice() {
           <button className="btn" onClick={() => three(+3)}>+3</button>
         </div>    
     <Row funName={three} param ={3} text='3' varName={addThree}/>
-    <Row funName={two} param ={1} text='2' varName={addTwo}/> */}
+    <Row funName={two} param ={1} text='2' varName={addTwo}/>
     {/* <Row2 /> */}
-    <List />
+    {/* <List /> */}
     {/* <Func /> */}
     </>
   )
