@@ -45,7 +45,7 @@ function App() {
         {/* <Todo /> */}
         {/* <Parent /> */}
         {/* <Que name='Rudra' rollNum = {16} age = {18}/> */}
-        <Medicine />
+        <Medicine /> 
       </header>
   );
 }

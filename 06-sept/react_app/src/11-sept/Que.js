@@ -23,7 +23,7 @@
 import React from 'react'
 
 function Que(props) {
-    // props.name = 'Solanki' // --> Cannot assign to read only property 'age' of object '#<Object>
+    props.name = 'Solanki' // --> Cannot assign to read only property 'name' of object '#<Object>
   return (
     <div>
       <h1 className="btn">{props.name}</h1>
