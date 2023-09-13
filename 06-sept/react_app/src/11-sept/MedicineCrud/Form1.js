@@ -7,34 +7,25 @@ import Row from "react-bootstrap/Row";
 import dayjs from 'dayjs';
 
 function Form1(props) {
-
   let forEdt_data = props.forEdt_data
   const [validated, setValidated] = useState(false);
   const [batchNumber, setBatchNumber] = useState('');
-  const [objOfData, setObjOfData] = useState({medicine:'', qty: '', expiry:'', rack:'', batch:''});
-  let a = dayjs();
+  const [objOfMedicineData, setObjOfMedicinData] = useState(forEdt_data || {medicine:'', qty: '', expiry:'', rack:'', batch:''});
+  const [radioDate, setRadioDate] = useState(!!forEdt_data);
+  const [radioDay, setRadioDay] = useState(false);
 
-  // useEffect(() => {
-  //   document.querySelector('#byDate').style.display = 'none'
-  //   document.querySelector('#byDay').style.display = 'none'
-  // }, []);
-
-  // function radioDate() {
-  //   document.querySelector('#byDay').style.display = 'none'
-  //   document.querySelector('#byDate').style.display = 'block'
-  // }
-  // function radioDay() {
-  //   document.querySelector('#byDate').style.display = 'none'
-  //   document.querySelector('#byDay').style.display = 'block'
-  // }
-
-  // if (forEdt_data !== null) {
-  //   document.querySelector('#medicine').value = forEdt_data.medicine
-  // }
-
+  const handleExpiryForDate = () => {
+    setRadioDate(true)
+    setRadioDay(false)
+  }
+  const handleExpiryForDay = () => {
+    setRadioDay(true)
+    setRadioDate(false)
+  }
+  let arr_betchnumber = ['A1','A2','A3','A4','A5','A6','A7','A8']
   const updateBetchNumber = (e) => {
-      e.target.value != 0 ? setBatchNumber("A"+e.target.value) : setBatchNumber('')
-      setObjOfData({...objOfData,batch:"A"+e.target.value})
+      e.target.value != 0 ? setBatchNumber(arr_betchnumber[e.target.value-1]) : setBatchNumber('')
+      setObjOfMedicinData({...objOfMedicineData,batch:arr_betchnumber[e.target.value-1]})
   }
 
   const handleSubmit = (event) => {
@@ -43,22 +34,24 @@ function Form1(props) {
     if (form.checkValidity() === false) {
       event.stopPropagation();
     }
-    props.dataOfObject(objOfData)
+    props.dataOfObject(objOfMedicineData)
     setValidated(true);
-
   };
 
   return (
     <Form noValidate validated={validated} onSubmit={handleSubmit}>
       <Row className="mb-3">
         <Form.Group  md="4" controlId="validationCustom01">
-          <h1> {a.hour()}</h1>
           <Form.Label>Medicine</Form.Label>
-          <Form.Control required type="text" onChange={(e) => {setObjOfData({...objOfData,medicine:e.target.value})}} />
+
+          <Form.Control required type="text" defaultValue={forEdt_data?forEdt_data.medicine:objOfMedicineData.medicine} onChange={(e) => {setObjOfMedicinData({...objOfMedicineData,medicine:e.target.value})}} />
+
         </Form.Group>
         <Form.Group  md="4" controlId="validationCustom02">
           <Form.Label>Rack</Form.Label>
-          <Form.Select size="lg" defaultValue={0} onClick={updateBetchNumber}  onChange={(e) => {setObjOfData({...objOfData,rack:e.target.value})}}>
+
+          <Form.Select size="lg" defaultValue={forEdt_data?forEdt_data.rack:0} onClick={updateBetchNumber}  onChange={(e) => {setObjOfMedicinData({...objOfMedicineData,rack:e.target.value})}}>
+            
             <option disabled value={0}>--Select rack--</option>
             <option value='1'>id-1 batch-A1</option>
             <option value='2'>id-2 batch-A2</option>
@@ -75,15 +68,14 @@ function Form1(props) {
             <Form.Control
               type="text"
               disabled
-              value={batchNumber}
-              // onChange={(e) => {setObjOfData({...objOfData,batch:e.target.value})}}
+              value={forEdt_data?forEdt_data.batch:batchNumber}
             />
         </Form.Group>
       </Row>
       <Row className="mb-3">
         <Form.Group md="6" controlId="validationCustom03">
           <Form.Label>Quantity</Form.Label>
-          <Form.Control type="number"  required  onChange={(e) => {setObjOfData({...objOfData,qty:e.target.value})}} />
+          <Form.Control type="number" defaultValue={forEdt_data?forEdt_data.qty:objOfMedicineData.qty}  required  onChange={(e) => {setObjOfMedicinData({...objOfMedicineData,qty:e.target.value})}} />
           <Form.Control.Feedback type="invalid">
             Please provide a valid Quantity.
           </Form.Control.Feedback>
@@ -99,7 +91,8 @@ function Form1(props) {
                 id={`By Date`}
                 label={`By Date`}
                 name={'date'}
-                onClick={radioDate}
+                onClick={handleExpiryForDate}
+                defaultChecked={!!forEdt_data}
               />
               <Form.Check 
               className="col-6"
@@ -107,20 +100,23 @@ function Form1(props) {
                 id={`By Day`}
                 label={`By Day`}
                 name={'date'}
-                onClick={radioDay}
+                onClick={handleExpiryForDay}
               />
               </Form.Group>
-          <Form.Control type='date' id='byDate' onChange={(e) => {setObjOfData({...objOfData,expiry:e.target.value})}} required/>
-          <Form.Group id='byDay' className="row m-1 d-flex ">
-              <Form.Control type='date' className="w-50 " onChange={(e) => {setObjOfData({...objOfData,expiry:e.target.value})}} required/>
-              <Form.Control type='number' className="w-50 ml-1" onChange={(e) => {setObjOfData({...objOfData,expiry:e.target.value})}} required/>
+
+          <Form.Control type='date' id='byDate' defaultValue={forEdt_data?forEdt_data.expiry:objOfMedicineData.expiry} style={{display: radioDate ? 'block' : 'none'}} onChange={(e) => {setObjOfMedicinData({...objOfMedicineData,expiry:e.target.value})}} required/>
+
+          <Form.Group id='byDay'  className="row m-1 d-flex">
+              <Form.Control style={{display: radioDay ? 'block' : 'none'}} type='date' className="w-50" required/>
+              <Form.Control style={{display: radioDay ? 'block' : 'none'}} type='number' className="w-50 ml-1" required/>
           </Form.Group>
+
          <Form.Control.Feedback type="invalid">
             Please provide a valid Expiry.
           </Form.Control.Feedback>
         </Form.Group>
       </Row>
-      <Button type="submit" >Add Data</Button>
+      <Button type="submit" >{forEdt_data ? 'Update Medicine' : 'Add Medicine' }</Button>
     </Form>
   );
 }

@@ -6,21 +6,25 @@ import React,{useState} from 'react'
 import './App.css'
 // import Event from './Events.js'
 // import EventHandling from './components/EventHandling'
-import AllEvents from './components/AllEvents'
-import DataFetch from './components/PractiseHooks'
+// import AllEvents from './components/AllEvents'
+// import DataFetch from './components/PractiseHooks'
 
 ////07-sept
-import Practice from './07-sept/useStack'
+// import Practice from './07-sept/useStack'
 
-////11-sept
-import Todo from './11-sept/Todo'
-import Parent from './11-sept/Parent' 
-import Que from './11-sept/Que'
+////11-sept and 12-sept
+// import Todo from './11-sept/Todo'
+// import Parent from './11-sept/Parent' 
+// import Que from './11-sept/Que'
 import Medicine from './11-sept/MedicineCrud/Medicine'
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import Form1 from './11-sept/MedicineCrud/Form1';
+
+////13-sept
+import Que2 from './13-sept/Que'
 
 function App() {
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
   // const getData =(name)=>{
   //   console.log(typeof name)
   //   console.log(name)
@@ -46,6 +50,8 @@ function App() {
         {/* <Parent /> */}
         {/* <Que name='Rudra' rollNum = {16} age = {18}/> */}
         <Medicine /> 
+        {/* <Que2 name={{firstName : 'Rudra' , lastName:'Solanki'}} age={18} course = 'B.tech'/> */}
+        {/* <Que2 /> */}
       </header>
   );
 }

@@ -3,29 +3,20 @@ import React,{useState,useEffect} from 'react';
 
 function Table1(props) {
     let arr_data = props.arr_data
-    const [arr, setArr] = useState([]);
-
-    useEffect(() => {
-        setArr(arr_data)
-    }, [arr_data]);
-
+    // const [delete_index, setDelete_index] = useState(null);
     const editer = (ind) => () => {
-        console.log(ind)
-        let b = arr.find((item,index) => index == ind)
-        // console.log(b)
-        props.dataForEdit(b)
+        props.edit_index(ind)
     } 
 
     const deleter = (ind) => (e) => {
-        let a = arr.filter((item,index) =>  ind != index)
-        setArr(a)
+        props.delete_index(ind)
     } 
 
   return (
     <Table striped bordered hover variant="dark" className='container my-3'>
       <thead>
         <tr>
-          <th>Medicine</th>
+          <th>Medicine</th> 
           <th>Quantity</th>
           <th>Expiry</th>
           <th>Rack</th>
@@ -35,7 +26,7 @@ function Table1(props) {
       </thead>
       <tbody>
         {
-            arr.map((item,index) => (
+            arr_data.map((item,index) => (
                 <tr key={index}>
                     <td>{item.medicine}</td>
                     <td>{item.qty}</td>
@@ -46,22 +37,6 @@ function Table1(props) {
                 </tr>
             ))
         }
-        {/* <tr>
-          <td>Dolo</td>
-          <td>2</td>
-          <td>22-05-2024</td>
-          <td>2</td>
-          <td>A2</td>
-          <td><button className='btn bg-success mx-2'>Edit</button><button className='btn bg-danger'>Del</button></td>
-        </tr>
-        <tr>
-          <td>Para</td>
-          <td>20</td>
-          <td>12-05-2034</td>
-          <td>6</td>
-          <td>A6</td>
-          <td><button className='btn bg-success mx-2'>Edit</button><button className='btn bg-danger'>Del</button></td>
-        </tr> */}
       </tbody>
     </Table>
   );
