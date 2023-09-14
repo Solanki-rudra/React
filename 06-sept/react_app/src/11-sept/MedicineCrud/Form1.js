@@ -13,6 +13,9 @@ function Form1(props) {
   const [objOfMedicineData, setObjOfMedicinData] = useState(forEdt_data || {medicine:'', qty: '', expiry:'', rack:'', batch:''});
   const [radioDate, setRadioDate] = useState(!!forEdt_data);
   const [radioDay, setRadioDay] = useState(false);
+  const [expiry_days, setExpiry_days] = useState(null);
+  const [manufactureDate, setManufactureDate] = useState(null);
+  const [isValidate, setIsValidate] = useState(true);
 
   const handleExpiryForDate = () => {
     setRadioDate(true)
@@ -22,7 +25,7 @@ function Form1(props) {
     setRadioDay(true)
     setRadioDate(false)
   }
-  let arr_betchnumber = ['A1','A2','A3','A4','A5','A6','A7','A8']
+  let arr_betchnumber = ['A1','A2','A3','A4','A5','A6','A7','A8'] 
   const updateBetchNumber = (e) => {
       e.target.value != 0 ? setBatchNumber(arr_betchnumber[e.target.value-1]) : setBatchNumber('')
       setObjOfMedicinData({...objOfMedicineData,batch:arr_betchnumber[e.target.value-1]})
@@ -34,8 +37,26 @@ function Form1(props) {
     if (form.checkValidity() === false) {
       event.stopPropagation();
     }
+    props.forDuplicateMedicine(objOfMedicineData.medicine)
+    if(manufactureDate){
+      console.log(manufactureDate,expiry_days)
+      let newExpiry = dayjs(manufactureDate).add(expiry_days , 'day').format('YYYY-MM-DD')
+      // console.log(newExpiry)
+      objOfMedicineData.expiry = newExpiry
+      // setObjOfMedicinData(pv=>({...pv,expiry:newExpiry}))
+      // console.log(objOfMedicineData.expiry)
+      // props.dataOfObject(objOfMedicineData)
+    }
+    // if (!isValidate) {
+    //   // setIsValidate(true)
+    //   alert('Medicine already available')
+    // }else{
+    //   setValidated(true);
+    //   props.dataOfObject(objOfMedicineData)
+    // }
     props.dataOfObject(objOfMedicineData)
     setValidated(true);
+    
   };
 
   return (
@@ -50,7 +71,7 @@ function Form1(props) {
         <Form.Group  md="4" controlId="validationCustom02">
           <Form.Label>Rack</Form.Label>
 
-          <Form.Select size="lg" defaultValue={forEdt_data?forEdt_data.rack:0} onClick={updateBetchNumber}  onChange={(e) => {setObjOfMedicinData({...objOfMedicineData,rack:e.target.value})}}>
+          <Form.Select size="lg" defaultValue={forEdt_data?forEdt_data.rack:0} onClick={updateBetchNumber}  onChange={(e) => {setObjOfMedicinData({...objOfMedicineData,rack:e.target.value})}} >
             
             <option disabled value={0}>--Select rack--</option>
             <option value='1'>id-1 batch-A1</option>
@@ -104,11 +125,12 @@ function Form1(props) {
               />
               </Form.Group>
 
-          <Form.Control type='date' id='byDate' defaultValue={forEdt_data?forEdt_data.expiry:objOfMedicineData.expiry} style={{display: radioDate ? 'block' : 'none'}} onChange={(e) => {setObjOfMedicinData({...objOfMedicineData,expiry:e.target.value})}} required/>
+          <Form.Control type='date' id='byDate' min={dayjs()} defaultValue={forEdt_data?forEdt_data.expiry:objOfMedicineData.expiry} style={{display: radioDate ? 'block' : 'none'}} onChange={(e) => {setObjOfMedicinData({...objOfMedicineData,expiry:e.target.value})}} required/>
 
           <Form.Group id='byDay'  className="row m-1 d-flex">
-              <Form.Control style={{display: radioDay ? 'block' : 'none'}} type='date' className="w-50" required/>
-              <Form.Control style={{display: radioDay ? 'block' : 'none'}} type='number' className="w-50 ml-1" required/>
+              <Form.Control style={{display: radioDay ? 'block' : 'none'}} type='date' className="w-50" onChange={(e) => setManufactureDate(e.target.value)} required/>
+
+              <Form.Control style={{display: radioDay ? 'block' : 'none'}} type='number' className="w-50 ml-1" onChange={(e) => setExpiry_days(e.target.value)}required/>
           </Form.Group>
 
          <Form.Control.Feedback type="invalid">

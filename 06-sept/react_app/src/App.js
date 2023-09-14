@@ -23,6 +23,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 ////13-sept
 import Que2 from './13-sept/Que'
 
+import MainCrud from './CrudApi/MainCrud';
+
 function App() {
   // const [count, setCount] = useState(0);
   // const getData =(name)=>{
@@ -49,9 +51,10 @@ function App() {
         {/* <Todo /> */}
         {/* <Parent /> */}
         {/* <Que name='Rudra' rollNum = {16} age = {18}/> */}
-        <Medicine /> 
+        {/* <Medicine />  */}
         {/* <Que2 name={{firstName : 'Rudra' , lastName:'Solanki'}} age={18} course = 'B.tech'/> */}
         {/* <Que2 /> */}
+        <MainCrud />
       </header>
   );
 }

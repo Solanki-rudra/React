@@ -3,7 +3,6 @@ import React,{useState,useEffect} from 'react';
 
 function Table1(props) {
     let arr_data = props.arr_data
-    // const [delete_index, setDelete_index] = useState(null);
     const editer = (ind) => () => {
         props.edit_index(ind)
     } 
