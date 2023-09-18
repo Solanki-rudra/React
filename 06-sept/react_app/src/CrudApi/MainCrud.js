@@ -1,3 +1,4 @@
+// cmd --> npx json-server -p 3331 -w db.json
 import Form from './Form';
 import { useState,useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
@@ -8,7 +9,10 @@ const url = 'http://localhost:3331/comments/';
 function MainCrud() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setShow(true)
+    setForEditObj(null)
+  };
   const [arrOfAllData, setArrOfAllData] = useState([]);
   const [forEditObj, setForEditObj] = useState(null);
 
@@ -28,6 +32,7 @@ function MainCrud() {
     }, []);
 
 async function clickOnSubmit(objOfData){
+  // console.log('submit')
   try{
     let response = await fetch(url,{
       method : 'POST',
@@ -41,6 +46,34 @@ async function clickOnSubmit(objOfData){
    }catch(error){
        alert(error);
    }
+   setShow(false)
+}
+
+async function clickOnUpdate(objOfData){
+  console.log('update')
+  try{
+    let response = await fetch(url+(objOfData.id),{
+      method : 'PATCH',
+      body : JSON.stringify(objOfData),
+      headers : {
+          'Content-Type': 'application/json',
+      }
+    })
+      // let data = await response.json()
+      // setArrOfAllData(pv => [...pv,data])
+  }catch(error){
+     console.log(error)
+      alert(error);
+  }
+  try{
+    let response = await fetch(url)
+    let data = await response.json()
+    // console.log(data)
+    setArrOfAllData(data)
+  }
+    catch(err){
+    alert(err.message)
+  }
    setShow(false)
 }
 
@@ -66,37 +99,29 @@ async function handleDelete(id){
   }
 }
 async function handleEdit(id){
-  setShow(true)
   try{
-    let a = await fetch(url+id,{
-      method: 'PATCH',
-      headers: {
-        "Content-Type": "application/json",
-      }
-    })
+    let a = await fetch(url+id)
     let data = await a.json()
-    console.log(data)
-    setForEditObj(null)
+    // console.log(data)
     setForEditObj(data)
+    setShow(true)
   }catch(err){
     alert(err.message)
   }
 }
   return (
     <> 
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="primary" className='m-3 bg-black border-0 ' onClick={handleShow}>
         Add Data
       </Button>
-
-      <Modal show={show} onHide={handleClose} >
+      <Modal className='model' show={show} onHide={handleClose} >
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Form</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <Form submitPress={clickOnSubmit} forEditObj={forEditObj}/>
+            <Form submitPress={clickOnSubmit} updatePress={clickOnUpdate} forEditObj={forEditObj}/>
         </Modal.Body>
       </Modal>
-      
       <Table arrOfAllData={arrOfAllData} forDelete={handleDelete} forEdit={handleEdit}/>
     </>
   );

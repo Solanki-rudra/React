@@ -1,21 +1,36 @@
+body{
+    background-color: #414141 !important;
+    display: flex;
+    justify-content: center;
+}
 input{
     border: 2px solid rebeccapurple;
     border-radius: 5px;
+    padding-block: 5px;
 }
 table{
-    background-color: rgb(35, 6, 63);
-    color: white;
+    background-color: #212121;
+    color: rgb(255, 255, 255);
     padding: 15px;
     border: 2px solid black;
     margin: 20px;
 }
 tr{
-    border: 1px solid black;
+    border-bottom: 1px solid black !important; 
 }
 th,td{
-    padding: 10px;
-    text-align: center;
+    padding: 10px 20px;
+    border-right: 1px solid black !important;
+}
+th{
+    background-color: #313131;
+    text-align: center!important;
 }
 p{
     color: red;
+    font-size: 14px;
+}
+button{
+    padding:5px 10px;
+    margin-inline: 5px !important;
 }
