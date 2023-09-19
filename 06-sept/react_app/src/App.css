@@ -3,10 +3,13 @@ body{
     display: flex;
     justify-content: center;
 }
-input{
+input,.password-row{
     border: 2px solid rebeccapurple;
     border-radius: 5px;
     padding-block: 5px;
+}
+input:focus{
+    outline: none;
 }
 table{
     background-color: #212121;
@@ -33,4 +36,7 @@ p{
 button{
     padding:5px 10px;
     margin-inline: 5px !important;
+}
+span{
+    font-size: 20px;
 }

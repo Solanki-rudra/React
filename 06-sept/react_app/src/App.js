@@ -25,6 +25,8 @@ import Que2 from './13-sept/Que'
 
 import MainCrud from './CrudApi/MainCrud';
 
+import ReverseCounter from './components/ReverseCounter';
+
 function App() {
   // const [count, setCount] = useState(0);
   // const getData =(name)=>{
@@ -54,7 +56,8 @@ function App() {
         {/* <Medicine />  */}
         {/* <Que2 name={{firstName : 'Rudra' , lastName:'Solanki'}} age={18} course = 'B.tech'/> */}
         {/* <Que2 /> */}
-        <MainCrud />
+        {/* <MainCrud /> */}
+        <ReverseCounter />
       </header>
   );
 }

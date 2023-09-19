@@ -6,8 +6,9 @@ const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 function Form({submitPress , forEditObj , updatePress}) {
     const [objOfData, setObjOfData] = useState(forEditObj || {firstname:'',lastname:'',email:'',phone:'',password:'' });
     const [objOfValidation, setObjOfValidation] = useState({firstname:'',lastname:'',email:'',phone:'',password:''});
+    const [hideShow, setHideShow] = useState({isShow:false,face:'😑'});
 
-    async function handleSubmit (e) {
+    function handleSubmit (e) {
         e.preventDefault()
         if(validationOnClick() === 5){
             forEditObj ? updatePress(objOfData) : submitPress(objOfData)
@@ -65,6 +66,10 @@ function Form({submitPress , forEditObj , updatePress}) {
 
     function password_validation(value){
         setObjOfValidation((pv) => ({...pv,password:''}))
+        if(value.endsWith(' ')){
+            setObjOfValidation((pv)=>({...pv,password:'Password ignores all the spaces'}))
+            return true
+        }
         if(!(value.replaceAll(' ','').length >= 8)){
             setObjOfValidation((pv) => ({...pv,password:'Enter atleast 8 letter'}))
             return true
@@ -72,7 +77,8 @@ function Form({submitPress , forEditObj , updatePress}) {
         if(!passwardRegex.test(value)){
             setObjOfValidation((pv) => ({...pv,password:'Use lowercase, uppercase, numbers and special characters'}))
             return true
-        }
+        } 
+        setObjOfData(pv => ({...pv,password:value.replaceAll(' ','')}))
         return false
     }
 
@@ -90,6 +96,8 @@ function Form({submitPress , forEditObj , updatePress}) {
         all_validation(id,value)
     }
 
+    const handleHideShow = () => hideShow.isShow ? setHideShow({isShow:false,face:'😑'}) : setHideShow({isShow:true,face:'😐'})
+        
   return (
     <div>
         <form onSubmit={handleSubmit}>
@@ -105,7 +113,7 @@ function Form({submitPress , forEditObj , updatePress}) {
             </div>
             <div className='row m-2'>
                 <label htmlFor='email'>Email :</label>
-                <input type="email" defaultValue={objOfData?(objOfData.email):''} onChange={(e) => onChangeFunc(e.target.id,e.target.value)} id='email' />
+                <input type="email" defaultValue={objOfData?(objOfData.email):''} onChange={(e) => onChangeFunc(e.target.id,e.target.value)} id='email'/>
                 <p>{objOfValidation.email}</p>
             </div>
             <div className='row m-2'>
@@ -115,7 +123,10 @@ function Form({submitPress , forEditObj , updatePress}) {
             </div>
             <div className='row m-2'>
                 <label htmlFor='password'>Password :</label>
-                <input type="password" defaultValue={objOfData?(objOfData.password):''} onChange={(e) => onChangeFunc(e.target.id,e.target.value)} id='password' />
+                <div className="password-row p-0">
+                    <input type={hideShow.isShow ? 'text' : 'password'} className='col-11 border-0 pl-3' defaultValue={objOfData?(objOfData.password):''} onChange={(e) => onChangeFunc(e.target.id,e.target.value)} id='password'/>
+                    <span className='col-1 cursor-pointer p-0' onClick={handleHideShow}>{hideShow.face}</span>
+                </div>
                 <p>{objOfValidation.password}</p>
             </div>
             <input type="submit" className='btn bg-primary text-white m-2' value = {forEditObj ? 'Update': 'Submit'} />

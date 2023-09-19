@@ -3,9 +3,7 @@ import React from 'react';
 function Table(props) {
     let arrOfAllData = props.arrOfAllData
     const deleter =(id) =>{
-      if(window.confirm('Are you sure for delete data?')){
         props.forDelete(id)
-      }
     }
     const editer = (id) => {
         props.forEdit(id)

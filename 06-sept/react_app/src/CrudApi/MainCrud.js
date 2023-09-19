@@ -8,7 +8,12 @@ const url = 'http://localhost:3331/comments/';
 
 function MainCrud() {
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const [show2, setShow2] = useState(false);
+  const [isDelete, setIsdelete] = useState(null);
+  const handleClose = () => {
+    setShow(false)
+    setShow2(false)
+  };
   const handleShow = () => {
     setShow(true)
     setForEditObj(null)
@@ -17,22 +22,19 @@ function MainCrud() {
   const [forEditObj, setForEditObj] = useState(null);
 
   useEffect(() => {
-    console.log("object")
       const fetchData = async () => {
         try {
           const response = await fetch(url);
           const data = await response.json();
-          console.log(data);
           setArrOfAllData(data)
         } catch (error) {
-          alert(error.message);
+          alert(error);
         }
       };
        fetchData();
     }, []);
 
 async function clickOnSubmit(objOfData){
-  // console.log('submit')
   try{
     let response = await fetch(url,{
       method : 'POST',
@@ -50,7 +52,6 @@ async function clickOnSubmit(objOfData){
 }
 
 async function clickOnUpdate(objOfData){
-  console.log('update')
   try{
     let response = await fetch(url+(objOfData.id),{
       method : 'PATCH',
@@ -59,16 +60,12 @@ async function clickOnUpdate(objOfData){
           'Content-Type': 'application/json',
       }
     })
-      // let data = await response.json()
-      // setArrOfAllData(pv => [...pv,data])
   }catch(error){
-     console.log(error)
       alert(error);
   }
   try{
     let response = await fetch(url)
     let data = await response.json()
-    // console.log(data)
     setArrOfAllData(data)
   }
     catch(err){
@@ -77,32 +74,39 @@ async function clickOnUpdate(objOfData){
    setShow(false)
 }
 
-async function handleDelete(id){
-  try{
-    let a = await fetch(url+id,{
-      method: 'DELETE',
-      headers: {
-          "Content-Type": "application/json",
-       }
-    })
-  }catch(err){
-    alert(err.message)
-  }
-  try{
-    let response = await fetch(url)
-    let data = await response.json()
-    // console.log(data)
-    setArrOfAllData(data)
-  }
-  catch(err){
-    alert(err.message)
-  }
+function handleDeleteConfirmation (id) {
+  setShow2(true)
+  setIsdelete(id)
 }
+
+async function handleDelete(id){
+    try{
+      let a = await fetch(url+id,{
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json",
+         }
+      })
+    }catch(err){
+      alert(err)
+    }
+    try{
+      let response = await fetch(url)
+      let data = await response.json()
+      setArrOfAllData(data)
+    }
+    catch(err){
+      alert(err)
+    }
+    setShow2(false)
+    setIsdelete(null)
+   }
+
+
 async function handleEdit(id){
   try{
     let a = await fetch(url+id)
     let data = await a.json()
-    // console.log(data)
     setForEditObj(data)
     setShow(true)
   }catch(err){
@@ -122,7 +126,18 @@ async function handleEdit(id){
             <Form submitPress={clickOnSubmit} updatePress={clickOnUpdate} forEditObj={forEditObj}/>
         </Modal.Body>
       </Modal>
-      <Table arrOfAllData={arrOfAllData} forDelete={handleDelete} forEdit={handleEdit}/>
+
+      <Modal className='model' show={show2} onHide={handleClose} >
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h5>Are you sure for Delete ?</h5>
+          <button className='btn bg-danger text-white' onClick={() => handleDelete(isDelete)}>Delete</button>
+          <button className='btn bg-primary text-white' onClick={handleClose}>cancel</button>
+        </Modal.Body>
+      </Modal>
+      <Table arrOfAllData={arrOfAllData} forDelete={handleDeleteConfirmation} forEdit={handleEdit}/>
     </>
   );
 }
