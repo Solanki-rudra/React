@@ -81,6 +81,7 @@ function handleDeleteConfirmation (id) {
 
 async function handleDelete(id){
     try{
+      
       let a = await fetch(url+id,{
         method: 'DELETE',
         headers: {
@@ -113,7 +114,7 @@ async function handleEdit(id){
     alert(err.message)
   }
 }
-  return (
+  return ( 
     <> 
       <Button variant="primary" className='m-3 bg-black border-0 ' onClick={handleShow}>
         Add Data

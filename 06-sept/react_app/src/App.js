@@ -26,6 +26,8 @@ import Que2 from './13-sept/Que'
 import MainCrud from './CrudApi/MainCrud';
 
 import ReverseCounter from './components/ReverseCounter';
+import Home from './Router/Home';
+import Practice20sept from './components/Practice20sept';
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -40,7 +42,7 @@ function App() {
         <h1>hello</h1>
         <Conditional /> */}
         {/* <div className='row'>
-          <div className='col'>
+          <div className='col'> 
           <Mybuttons />
           </div>
         </div> */}
@@ -57,7 +59,9 @@ function App() {
         {/* <Que2 name={{firstName : 'Rudra' , lastName:'Solanki'}} age={18} course = 'B.tech'/> */}
         {/* <Que2 /> */}
         {/* <MainCrud /> */}
-        <ReverseCounter />
+        {/* <ReverseCounter /> */}
+        <Practice20sept />
+        {/* <Home /> */}
       </header>
   );
 }

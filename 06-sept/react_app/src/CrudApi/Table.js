@@ -8,7 +8,7 @@ function Table(props) {
     const editer = (id) => {
         props.forEdit(id)
     }
-  return (
+  return ( 
     <>
       <table>
         <thead>

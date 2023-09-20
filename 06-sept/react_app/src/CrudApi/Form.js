@@ -14,7 +14,7 @@ function Form({submitPress , forEditObj , updatePress}) {
             forEditObj ? updatePress(objOfData) : submitPress(objOfData)
         }
     }
-
+ 
     function validationOnClick() {
         setObjOfValidation({firstname:'',lastname:'',email:'',phone:'',password:''})
         let howManyValid = 0;

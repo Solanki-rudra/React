@@ -1,7 +1,7 @@
 body{
     background-color: #414141 !important;
-    display: flex;
-    justify-content: center;
+    /* display: flex;
+    justify-content: center; */
 }
 input,.password-row{
     border: 2px solid rebeccapurple;
