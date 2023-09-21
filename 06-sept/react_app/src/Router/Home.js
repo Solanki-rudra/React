@@ -2,8 +2,9 @@ import React from 'react'
 import Navbar from './Navbar'
 import About from './About';
 import Contact from './Contact';
-import {
-  BrowserRouter as Router,
+import Home2 from './Home2';
+import { 
+  Routes,
   Switch,
   Route,
   Link
@@ -13,20 +14,12 @@ import {
 function Home() {
   return (
     <div>
-      {/* <Router> */}
-      {/* <Navbar />
-        <Switch>
-            <Route path="/about">
-              <About />
-            </Route>
-            <Route path="/contact">
-              <Contact />
-            </Route>
-            <Route path="/">
-                <h1>This is home</h1>
-            </Route>
-          </Switch>
-        </Router> */}
+       <Navbar />
+      <Routes> 
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/" element={<Home2 />} />
+        </Routes>
     </div>
   )
 }
