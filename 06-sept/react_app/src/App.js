@@ -22,12 +22,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 ////13-sept
 import Que2 from './13-sept/Que'
-
 import MainCrud from './CrudApi/MainCrud';
-
 import ReverseCounter from './components/ReverseCounter';
 import Home from './Router/Home';
 import Practice20sept from './components/Practice20sept';
+import Contex from './components/Contex';
+
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -60,8 +60,9 @@ function App() {
         {/* <Que2 /> */}
         {/* <MainCrud /> */}
         {/* <ReverseCounter /> */}
-        <Practice20sept />
-        {/* <Home /> */}
+        {/* <Practice20sept /> */}
+        <Home />
+        {/* <Contex /> */}
       </header>
   );
 }
