@@ -3,7 +3,7 @@ body{
     /* display: flex;
     justify-content: center; */
 }
-input,.password-row{
+input,.password-row,select{
     border: 2px solid rebeccapurple;
     border-radius: 5px;
     padding-block: 5px;

@@ -28,6 +28,8 @@ import Home from './Router/Home';
 import Practice20sept from './components/Practice20sept';
 import Contex from './components/Contex';
 
+import MedicineIndex from './MedicineWithApi/MedicineIndex';
+
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -61,8 +63,9 @@ function App() {
         {/* <MainCrud /> */}
         {/* <ReverseCounter /> */}
         {/* <Practice20sept /> */}
-        <Home />
+        {/* <Home /> */}
         {/* <Contex /> */}
+        <MedicineIndex />
       </header>
   );
 }

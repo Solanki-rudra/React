@@ -4,37 +4,36 @@ import { useState,useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Table from './Table';
-const url = 'http://localhost:3331/comments/';
+import ConfirmationModel from './ConfirmationModel';
 
-function MainCrud() {
+
+const url = 'http://localhost:3331/comments/';
+function MainCrud() { 
   const [show, setShow] = useState(false);
-  const [show2, setShow2] = useState(false);
+  const [showDeleteModel, setShowDeleteModel] = useState(false);
+  const [showEditModel, setShowEditModel] = useState(false);
+  const [showAddModel, setShowAddModel] = useState(false);
   const [isDelete, setIsdelete] = useState(null);
+  const [isEdit, setIsEdit] = useState(null);
+  const [arrOfAllData, setArrOfAllData] = useState([]);
+  const [forEditObj, setForEditObj] = useState(null);
+
   const handleClose = () => {
     setShow(false)
-    setShow2(false)
+    setShowDeleteModel(false)
+    setShowEditModel(false)
+    setShowAddModel(false)
   };
   const handleShow = () => {
     setShow(true)
     setForEditObj(null)
   };
-  const [arrOfAllData, setArrOfAllData] = useState([]);
-  const [forEditObj, setForEditObj] = useState(null);
 
   useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await fetch(url);
-          const data = await response.json();
-          setArrOfAllData(data)
-        } catch (error) {
-          alert(error);
-        }
-      };
-       fetchData();
+      getDataApi();
     }, []);
 
-async function clickOnSubmit(objOfData){
+  async function clickOnSubmit(objOfData){
   try{
     let response = await fetch(url,{
       method : 'POST',
@@ -49,9 +48,21 @@ async function clickOnSubmit(objOfData){
        alert(error);
    }
    setShow(false)
-}
+   setShowAddModel(false)
+  }
 
-async function clickOnUpdate(objOfData){
+  async function getDataApi(){
+  try{
+    let response = await fetch(url)
+    let data = await response.json()
+    setArrOfAllData(data)
+  }
+    catch(err){
+    alert(err.message)
+  }
+  }
+
+  async function clickOnUpdate(objOfData){
   try{
     let response = await fetch(url+(objOfData.id),{
       method : 'PATCH',
@@ -63,26 +74,22 @@ async function clickOnUpdate(objOfData){
   }catch(error){
       alert(error);
   }
-  try{
-    let response = await fetch(url)
-    let data = await response.json()
-    setArrOfAllData(data)
-  }
-    catch(err){
-    alert(err.message)
-  }
+   getDataApi()
    setShow(false)
-}
+  }
 
-function handleDeleteConfirmation (id) {
-  setShow2(true)
+  function handleDeleteConfirmation (id) {
   setIsdelete(id)
-}
+  setShowDeleteModel(true)
+  }
+  function handleEditConfirmation (id) {
+  setIsEdit(id)
+  setShowEditModel(true)
+  }
 
-async function handleDelete(id){
+  async function handleDelete(){
     try{
-      
-      let a = await fetch(url+id,{
+      let a = await fetch(url+isDelete,{
         method: 'DELETE',
         headers: {
             "Content-Type": "application/json",
@@ -91,34 +98,29 @@ async function handleDelete(id){
     }catch(err){
       alert(err)
     }
-    try{
-      let response = await fetch(url)
-      let data = await response.json()
-      setArrOfAllData(data)
-    }
-    catch(err){
-      alert(err)
-    }
-    setShow2(false)
+    getDataApi()
+    setShowDeleteModel(false)
     setIsdelete(null)
-   }
-
-
-async function handleEdit(id){
+  }
+  async function handleEdit(){
   try{
-    let a = await fetch(url+id)
+    let a = await fetch(url+isEdit)
     let data = await a.json()
     setForEditObj(data)
     setShow(true)
   }catch(err){
     alert(err.message)
   }
-}
+  setShowEditModel(false)
+  setIsEdit(null)
+  }
+
   return ( 
     <> 
-      <Button variant="primary" className='m-3 bg-black border-0 ' onClick={handleShow}>
+      <Button variant="primary" className='m-3 bg-black border-0 ' onClick={() => {setShowAddModel(true)}}>
         Add Data
       </Button>
+
       <Modal className='model' show={show} onHide={handleClose} >
         <Modal.Header closeButton>
           <Modal.Title>Form</Modal.Title>
@@ -128,17 +130,13 @@ async function handleEdit(id){
         </Modal.Body>
       </Modal>
 
-      <Modal className='model' show={show2} onHide={handleClose} >
-        <Modal.Header closeButton>
-          <Modal.Title>Confirmation</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <h5>Are you sure for Delete ?</h5>
-          <button className='btn bg-danger text-white' onClick={() => handleDelete(isDelete)}>Delete</button>
-          <button className='btn bg-primary text-white' onClick={handleClose}>cancel</button>
-        </Modal.Body>
-      </Modal>
-      <Table arrOfAllData={arrOfAllData} forDelete={handleDeleteConfirmation} forEdit={handleEdit}/>
+      <ConfirmationModel show={showAddModel} handleClose={handleClose} title="Confirmation" confirmationMessage="Are you sure you want to Add some data?" onConfirm={handleShow} onCancel={handleClose} />
+
+      <ConfirmationModel show={showDeleteModel} handleClose={handleClose} title="Confirmation" confirmationMessage="Are you sure you want to Delete this data?" onConfirm={handleDelete} onCancel={handleClose} />
+
+      <ConfirmationModel  show={showEditModel} handleClose={handleClose} title="Confirmation" confirmationMessage="Are you sure you want to Edit this data?" onConfirm={handleEdit} onCancel={handleClose} />
+
+      <Table arrOfAllData={arrOfAllData} forDelete={handleDeleteConfirmation} forEdit={handleEditConfirmation}/>
     </>
   );
 }
