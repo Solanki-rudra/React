@@ -3,13 +3,11 @@ import TaskList from './TaskList';
 import Task1 from './Task1';
 import Task2 from './Task2';
 import Task3 from './Task3';
+import Task4 from './Task4';
 import Task3Sub from './Task3Sub';
 import { 
     Routes,
-    useParams,
     Route,
-    Outlet,
-    Link
  } from "react-router-dom";
 
 function HomeTask() {
@@ -22,14 +20,7 @@ function HomeTask() {
             <Route path="task3" element={<Task3 />} >
                 <Route path=':taskId' element={<Task3Sub />} />
             </Route>
-            {/* <Route path="/learn" element={<Learn />} >
-              <Route path='javaScript' element={<JavaScript />}></Route>
-              <Route path=':courseId' element={<Course />}></Route>
-              <Route path='react' element={<LearnReact />}>
-                <Route path='ractNative' element={<ReactNative />}></Route>
-                <Route path='nextJs' element={<NextJs />}></Route>
-              </Route>
-            </Route>  */}
+            <Route path="/task4" element={<Task4 />} />
      </Routes>
     </div>
   )

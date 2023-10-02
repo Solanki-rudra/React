@@ -1,10 +1,6 @@
 import React,{useState} from 'react'
 import { 
-    Routes,
-    useParams,
-    Route,
-    Outlet,
-    Link
+    useParams
  } from "react-router-dom";
 
 function Task3Sub() {
@@ -23,7 +19,7 @@ function Task3Sub() {
     }
   return (
     <div>
-      {taskId > 8 && taskId < 1 ? (<h2>Page not found</h2>) : (
+      {taskId > 8 || taskId < 1 ? (<h2>Page not found</h2>) : (
         <ul className='d-flex'>
           {newArray.map((item, index) => (
             <li key={index}>

@@ -1,9 +1,5 @@
 import React,{useState} from 'react'
 import { 
-    Routes,
-    useParams,
-    Route,
-    Outlet,
     Link
  } from "react-router-dom";
 
