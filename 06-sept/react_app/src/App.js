@@ -30,6 +30,8 @@ import Contex from './components/Contex';
 
 import MedicineIndex from './MedicineWithApi/MedicineIndex';
 
+import HomeTask from './RoutingTask/HomeTask';
+
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -65,7 +67,8 @@ function App() {
         {/* <Practice20sept /> */}
         {/* <Home /> */}
         {/* <Contex /> */}
-        <MedicineIndex />
+        {/* <MedicineIndex /> */}
+        <HomeTask />
       </header>
   );
 }

@@ -1,8 +1,84 @@
 {
-    "comments" : [
-        {
-            "id" : 1,
-            "name":"'rudra'"
-        }
-    ]
+  "comments": [
+    {
+      "medicine": "35243",
+      "rack": "3",
+      "batch": "A3",
+      "quantity": "789",
+      "expiry": "",
+      "id": 18
+    },
+    {
+      "medicine": "7777",
+      "rack": "6",
+      "batch": "A6",
+      "quantity": "8788",
+      "expiry": "",
+      "id": 19
+    },
+    {
+      "medicine": "23534d",
+      "rack": "5",
+      "batch": "A5",
+      "quantity": "8754",
+      "expiry": "",
+      "id": 20
+    },
+    {
+      "medicine": "srg",
+      "rack": "3",
+      "batch": "A3",
+      "quantity": "87",
+      "expiry": "",
+      "id": 21
+    },
+    {
+      "medicine": "435qew",
+      "rack": "6",
+      "batch": "A6",
+      "quantity": "544",
+      "expiry": "",
+      "id": 23
+    },
+    {
+      "medicine": "dolo",
+      "rack": "7",
+      "batch": "A7",
+      "quantity": "88",
+      "expiry": "",
+      "id": 24
+    },
+    {
+      "medicine": "erf",
+      "rack": "5",
+      "batch": "A5",
+      "quantity": "855",
+      "expiry": "",
+      "id": 25
+    },
+    {
+      "medicine": "srg",
+      "rack": "2",
+      "batch": "A2",
+      "quantity": "87",
+      "expiry": "",
+      "id": 28
+    },
+    {
+      "medicine": "35",
+      "rack": "2",
+      "batch": "A2",
+      "quantity": "77",
+      "expiry": "",
+      "id": 29
+    },
+    {
+      "medicine": "435qew",
+      "rack": "3",
+      "batch": "A3",
+      "quantity": "3",
+      "expiry": "",
+      "id": 30
+    }
+  ]
 }
