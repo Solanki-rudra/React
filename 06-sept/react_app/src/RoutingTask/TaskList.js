@@ -10,6 +10,7 @@ function TaskList() {
       <Link className='m-1 bg-black p-2' to='/task2'>Task-2</Link>
       <Link className='m-1 bg-black p-2' to='/task3'>Task-3</Link>
       <Link className='m-1 bg-black p-2' to='/task4'>Task-4</Link>
+      <Link className='m-1 bg-black p-2' to='/task5'>Task-5</Link>
     </div>
   )
 }

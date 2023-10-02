@@ -4,6 +4,7 @@ import Task1 from './Task1';
 import Task2 from './Task2';
 import Task3 from './Task3';
 import Task4 from './Task4';
+import Task5 from './Task5';
 import Task3Sub from './Task3Sub';
 import { 
     Routes,
@@ -21,6 +22,7 @@ function HomeTask() {
                 <Route path=':taskId' element={<Task3Sub />} />
             </Route>
             <Route path="/task4" element={<Task4 />} />
+            <Route path="/task5" element={<Task5 />} />
      </Routes>
     </div>
   )

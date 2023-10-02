@@ -67,8 +67,8 @@ function App() {
         {/* <Practice20sept /> */}
         {/* <Home /> */}
         {/* <Contex /> */}
-        {/* <MedicineIndex /> */}
-        <HomeTask />
+        <MedicineIndex />
+        {/* <HomeTask /> */}
       </header>
   );
 }

@@ -1,30 +1,6 @@
 {
   "comments": [
     {
-      "medicine": "35243",
-      "rack": "3",
-      "batch": "A3",
-      "quantity": "789",
-      "expiry": "",
-      "id": 18
-    },
-    {
-      "medicine": "7777",
-      "rack": "6",
-      "batch": "A6",
-      "quantity": "8788",
-      "expiry": "",
-      "id": 19
-    },
-    {
-      "medicine": "23534d",
-      "rack": "5",
-      "batch": "A5",
-      "quantity": "8754",
-      "expiry": "",
-      "id": 20
-    },
-    {
       "medicine": "srg",
       "rack": "3",
       "batch": "A3",
@@ -57,14 +33,6 @@
       "id": 25
     },
     {
-      "medicine": "srg",
-      "rack": "2",
-      "batch": "A2",
-      "quantity": "87",
-      "expiry": "",
-      "id": 28
-    },
-    {
       "medicine": "35",
       "rack": "2",
       "batch": "A2",
@@ -79,6 +47,30 @@
       "quantity": "3",
       "expiry": "",
       "id": 30
+    },
+    {
+      "medicine": "35",
+      "rack": "6",
+      "batch": "A6",
+      "quantity": "7",
+      "expiry": "",
+      "id": 33
+    },
+    {
+      "medicine": "dfdfdsf",
+      "rack": "4",
+      "batch": "A4",
+      "quantity": "54",
+      "expiry": "",
+      "id": 34
+    },
+    {
+      "medicine": "435w",
+      "rack": "",
+      "batch": "",
+      "quantity": "",
+      "expiry": "",
+      "id": 35
     }
   ]
 }

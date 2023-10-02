@@ -11,7 +11,12 @@ function MedicineIndex() {
 
   useEffect(()=>{
     getData()
-  },[])
+  },[]) 
+
+  function handleAddMedicine() {
+    setModalShow(true)
+    setForEditData(null)
+  }
 
   async function getData() {
     try {
@@ -65,7 +70,7 @@ function MedicineIndex() {
 
   return (
     <div>
-        <Button variant="primary" onClick={() => setModalShow(true)}>
+        <Button variant="primary" onClick={handleAddMedicine}>
             Add Medicine
         </Button>
         <ModelAddMedicine show={modalShow} onHide={() => setModalShow(false)} medicine_data={handleMedicineData} forEditData={forEditData}/>

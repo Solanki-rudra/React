@@ -3,14 +3,15 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 function ModelAddMedicine(props) {
+  let forEditData = props.forEditData
   const [isExpiry, setIsExpiry] = useState({isDate:false,isDay:false});
   const [batchNumber, setBatchNumber] = useState('');
-  const [medicine_data, setMedicine_data] = useState(props.forEditData || {medicine:'',rack:'',batch:'',quantity:'',expiry:''});
+  const [medicine_data, setMedicine_data] = useState(forEditData || {medicine:'',rack:'',batch:'',quantity:'',expiry:''});
 
   const handleClose = () => {
     props.onHide()
     resetData()
-  }
+  } 
 
   function resetData() {
     setMedicine_data({medicine:'',rack:'',batch:'',quantity:'',expiry:''})
@@ -19,12 +20,19 @@ function ModelAddMedicine(props) {
   }
 
   const handleSubmit =() => {
+    console.log(forEditData)
+    console.log(medicine_data)
+    if(forEditData){
+
+    }
     props.medicine_data(medicine_data)
     props.onHide()
     resetData()
+    // console.log(medicine_data)
   }
 
   const handleOnChange =(value,id) =>{
+    console.log(medicine_data)
     setMedicine_data({...medicine_data,[id]:value,batch:batchNumber})
   }
 
@@ -42,11 +50,11 @@ function ModelAddMedicine(props) {
         <form className='px-3'>
         <div className="row">
             <label htmlFor="medicine">Medicine</label>
-            <input type="text" defaultValue={medicine_data.medicine} onChange={(e)=>handleOnChange(e.target.value,e.target.id)} id='medicine' />
+            <input type="text" defaultValue={forEditData?forEditData.medicine:medicine_data.medicine} onChange={(e)=>handleOnChange(e.target.value,e.target.id)} id='medicine' />
         </div>
         <div className="row">
             <label htmlFor="rack">Rack</label>
-            <select id="rack" defaultValue={medicine_data.rack} onChange={(e)=>handleOnChange(e.target.value,e.target.id)} onClick={(e)=>setBatchNumber(batchNumberArray[Number(e.target.value)-1])}>
+            <select id="rack" defaultValue={forEditData?forEditData.rack:0} onChange={(e)=>handleOnChange(e.target.value,e.target.id)} onClick={(e)=>setBatchNumber(batchNumberArray[Number(e.target.value)-1])}>
                 <option value={0} disabled selected>--select rack--</option>
                 <option value={1}>id-1 rack-1</option>
                 <option value={2}>id-2 rack-2</option>
@@ -62,11 +70,11 @@ function ModelAddMedicine(props) {
         </div>
         <div className="row">
             <label htmlFor="batch">Batch</label>
-            <input type="text" defaultValue={medicine_data.batch} onChange={(e)=>handleOnChange(e.target.value,e.target.id)} id='batch' value={batchNumber} disabled readOnly className="bg-slate-400"/>
+            <input type="text" defaultValue={forEditData?forEditData.batch:medicine_data.batch} onChange={(e)=>handleOnChange(e.target.value,e.target.id)} id='batch' value={batchNumber} disabled readOnly className="bg-slate-400"/>
         </div>
         <div className="row">
             <label htmlFor="quantity">Quantity</label>
-            <input type="number" defaultValue={medicine_data.quantity} onChange={(e)=>handleOnChange(e.target.value,e.target.id)} id='quantity'/>
+            <input type="number" defaultValue={forEditData?forEditData.quantity:medicine_data.quantity} onChange={(e)=>handleOnChange(e.target.value,e.target.id)} id='quantity'/>
         </div>
         {/* <div className="row">
             <label>Expiry</label>
@@ -89,7 +97,7 @@ function ModelAddMedicine(props) {
             <input type="number" placeholder='Enter days for expiry' className='col m-1 p-1' id='expiryDate'/>
         </div> */}
         <div className="row my-2">
-          <Button className='col' onClick={handleSubmit}>Submit</Button>
+          <Button className='col' onClick={handleSubmit}>{forEditData?'Update':'Submit'}</Button>
           <Button className='col' onClick={handleClose}>Close</Button>
         </div>
         </form>
