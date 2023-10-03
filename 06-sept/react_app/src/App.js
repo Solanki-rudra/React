@@ -32,6 +32,8 @@ import MedicineIndex from './MedicineWithApi/MedicineIndex';
 
 import HomeTask from './RoutingTask/HomeTask';
 
+import UsememoPrac from './components/UsememoPrac';
+
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -66,9 +68,10 @@ function App() {
         {/* <ReverseCounter /> */}
         {/* <Practice20sept /> */}
         {/* <Home /> */}
-        {/* <Contex /> */}
-        <MedicineIndex />
+        <Contex />
+        {/* <MedicineIndex /> */}
         {/* <HomeTask /> */}
+        <UsememoPrac />
       </header>
   );
 }

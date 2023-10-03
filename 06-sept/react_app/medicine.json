@@ -9,44 +9,12 @@
       "id": 21
     },
     {
-      "medicine": "435qew",
-      "rack": "6",
-      "batch": "A6",
-      "quantity": "544",
-      "expiry": "",
-      "id": 23
-    },
-    {
-      "medicine": "dolo",
-      "rack": "7",
-      "batch": "A7",
-      "quantity": "88",
-      "expiry": "",
-      "id": 24
-    },
-    {
-      "medicine": "erf",
-      "rack": "5",
-      "batch": "A5",
-      "quantity": "855",
-      "expiry": "",
-      "id": 25
-    },
-    {
       "medicine": "35",
       "rack": "2",
       "batch": "A2",
       "quantity": "77",
       "expiry": "",
       "id": 29
-    },
-    {
-      "medicine": "435qew",
-      "rack": "3",
-      "batch": "A3",
-      "quantity": "3",
-      "expiry": "",
-      "id": 30
     },
     {
       "medicine": "35",
@@ -65,7 +33,7 @@
       "id": 34
     },
     {
-      "medicine": "435w",
+      "medicine": "",
       "rack": "",
       "batch": "",
       "quantity": "",

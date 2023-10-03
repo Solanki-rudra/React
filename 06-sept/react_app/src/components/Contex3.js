@@ -37,21 +37,20 @@
 //   )
 // }
 
-// export default Contex3
+// export default Contex3 
+
 
 
 import React,{useContext} from 'react'
-import {data,color,title} from './Contex'
+import {data} from './Contex'
 
 function Contex3() {
     const myInfo = useContext(data);
-    const bgColor = useContext(color);
-    const topic = useContext(title);
     console.log(myInfo)
   return (
-    <div style={{backgroundColor:bgColor?'blue':'yellow',color:bgColor?'white':'black'}}>
+    <div style={{backgroundColor:myInfo.bgColor?'blue':'yellow',color:myInfo.bgColor?'white':'black'}}>
     <h1>I'm contex3</h1>
-      <h2>{topic}</h2>
+      {/* <h2>{topic}</h2> */}
       <h3>{myInfo.name}</h3>
       <h3>{myInfo.info.age}</h3>
       <h3>{myInfo.info.course}</h3>

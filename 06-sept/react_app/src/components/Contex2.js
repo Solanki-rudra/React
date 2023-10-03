@@ -8,6 +8,6 @@ function Contex2() {
       <Contex3 />
     </div>
   )
-}
+} 
 
 export default Contex2

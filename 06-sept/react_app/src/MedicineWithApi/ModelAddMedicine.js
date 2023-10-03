@@ -23,7 +23,7 @@ function ModelAddMedicine(props) {
     console.log(forEditData)
     console.log(medicine_data)
     if(forEditData){
-
+      
     }
     props.medicine_data(medicine_data)
     props.onHide()
@@ -108,4 +108,3 @@ function ModelAddMedicine(props) {
 }
 
 export default ModelAddMedicine
-1

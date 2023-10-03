@@ -9,7 +9,7 @@ function Task3() {
     <div>
       <Link className='m-1 bg-black p-2' to='/'>Home</Link>
       <h1>Task3</h1>
-      <h6>Change url like this -- /task3/5 </h6>
+      <h6>Change url like this -- /task3/5 (1 to 8) </h6>
       <Task3Sub />
     </div>
   )

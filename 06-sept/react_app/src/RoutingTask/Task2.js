@@ -10,7 +10,8 @@ function Task2() {
     const handleClick = (index) => () => {
       console.log(index)
       setIsClicked((pv) =>{
-        let updateArray = [...pv].fill(false)
+        // let updateArray = [...pv].fill(false)
+        let updateArray = [...pv].map((itm,ind) => (index!=ind ? itm=false:itm))
         updateArray[index] = !updateArray[index]
         return updateArray
       })
