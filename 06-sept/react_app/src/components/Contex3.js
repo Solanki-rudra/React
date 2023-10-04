@@ -43,6 +43,7 @@
 
 import React,{useContext} from 'react'
 import {data} from './Contex'
+import Contex4 from './Contex4';
 
 function Contex3() {
     const myInfo = useContext(data);
@@ -55,6 +56,7 @@ function Contex3() {
       <h3>{myInfo.info.age}</h3>
       <h3>{myInfo.info.course}</h3>
       <h3>{myInfo.info.learn}</h3>
+      <Contex4 />
     </div>
   )
 }

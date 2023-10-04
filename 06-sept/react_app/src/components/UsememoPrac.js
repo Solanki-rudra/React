@@ -89,6 +89,7 @@ function UsememoPrac() {
 
     return (
       <div>
+        <h1 className='m-2 text-danger'>UseMemo</h1>
         <Child />
         <h4>Number -- {count}</h4>
         <button className='btn bg-primary' onClick={() => setCount(pv => pv+1)}>Add</button>
