@@ -177,68 +177,68 @@
 
 
 
-// import React,{createContext, useContext, useState} from 'react';
+import React,{createContext, useContext, useState} from 'react';
 
-// const forCount = createContext();
-// function Contex (){
-//   const [count, setCount] = useState(0);
-//   function updateCount(value) {
-//     setCount(pv=>pv+value)
-//   }
-//   console.log('parent')
-//   return (
-//     <forCount.Provider value={{ count, updateCount }}>
-//       <h1>This is main parent</h1>
-//       <h1 className='text-center text-white'>{count}</h1>
-//       <Child1 />
-//     </forCount.Provider>
-//   );
-// }
-// export default Contex;
-
-
-// function Child1() {
-//   const count = useContext(forCount)
-//   function updateCount() {
-//     count.updateCount(1)
-//   }
-//   console.log('Child1')
-//   return(
-//     <div className='bg-warning '>
-//     <h1>This is child-1</h1>
-//     <button className="btn bg-primary" onClick={updateCount}>Add 1 from child1</button>
-//     <Child2 />
-//     </div>
-//   )
-// }
+const forCount = createContext();
+function Contex (){
+  const [count, setCount] = useState(0);
+  function updateCount(value) {
+    setCount(pv=>pv+value)
+  }
+  console.log('parent')
+  return (
+    <forCount.Provider value={{ count, updateCount }}>
+      <h1>This is main parent</h1>
+      <h1 className='text-center text-white'>{count}</h1>
+      <Child1 />
+    </forCount.Provider>
+  );
+}
+export default Contex;
 
 
-// function Child2() {
-//   const count = useContext(forCount)
-//   function updateCount() {
-//     count.updateCount(2)
-//   }
-//   console.log('Child2')
-//   return(
-//     <div className='bg-danger '>
-//     <h1>This is child-2</h1>
-//       <button className="btn bg-primary" onClick={updateCount}>Add 2 from child2</button>
-//     <Child3 />
-//     </div>
-//   )
-// }
+function Child1() {
+  const count = useContext(forCount)
+  function updateCount() {
+    count.updateCount(1)
+  }
+  console.log('Child1')
+  return(
+    <div className='bg-warning '>
+    <h1>This is child-1</h1>
+    <button className="btn bg-primary" onClick={updateCount}>Add 1 from child1</button>
+    <Child2 />
+    </div>
+  )
+}
 
 
-// function Child3() {
-//   const count = useContext(forCount)
-//   function updateCount() {
-//     count.updateCount(-1)
-//   }
-//   console.log('Child3')
-//   return(
-//     <div className='bg-success '>
-//       <h1>This is child-3</h1>
-//       <button className="btn bg-primary" onClick={updateCount}>Minus 1 from child3</button>
-//     </div>
-//   )
-// }
+function Child2() {
+  const count = useContext(forCount)
+  function updateCount() {
+    count.updateCount(2)
+  }
+  console.log('Child2')
+  return(
+    <div className='bg-danger '>
+    <h1>This is child-2</h1>
+      <button className="btn bg-primary" onClick={updateCount}>Add 2 from child2</button>
+    <Child3 />
+    </div>
+  )
+}
+
+
+function Child3() {
+  const count = useContext(forCount)
+  function updateCount() {
+    count.updateCount(-1)
+  }
+  console.log('Child3')
+  return(
+    <div className='bg-success '>
+      <h1>This is child-3</h1>
+      <button className="btn bg-primary" onClick={updateCount}>Minus 1 from child3</button>
+    </div>
+  )
+}

@@ -34,6 +34,7 @@ import HomeTask from './RoutingTask/HomeTask';
 
 import UsememoPrac from './components/UsememoPrac';
 import UseCallback from './components/UseCallback';
+import UseReducer from './components/UseReducer';
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -70,9 +71,10 @@ function App() {
         {/* <Home /> */}
         {/* <MedicineIndex /> */}
         {/* <HomeTask /> */}
-        <Contex />
+        {/* <Contex /> */}
         {/* <UsememoPrac /> */}
         {/* <UseCallback /> */}
+        <UseReducer />
       </header>
   );
 }
