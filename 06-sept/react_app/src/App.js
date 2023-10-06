@@ -35,6 +35,10 @@ import HomeTask from './RoutingTask/HomeTask';
 import UsememoPrac from './components/UsememoPrac';
 import UseCallback from './components/UseCallback';
 import UseReducer from './components/UseReducer';
+import Formik from './Formik.js';
+import Debouncing from './Debouncing';
+
+import ExamPrepCrud from './ExamPrepCrud/ExamPrepCrud';
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -74,7 +78,10 @@ function App() {
         {/* <Contex /> */}
         {/* <UsememoPrac /> */}
         {/* <UseCallback /> */}
-        <UseReducer />
+        {/* <UseReducer /> */}
+        {/* <Formik /> */}
+        {/* <Debouncing /> */}
+        <ExamPrepCrud />
       </header>
   );
 }

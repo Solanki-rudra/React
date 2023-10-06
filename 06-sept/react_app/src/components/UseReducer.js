@@ -31,79 +31,69 @@
 // export default UseReducer
 
 
-import React, { useReducer } from 'react';
 
-const initialState = {
-  todos: [],
-};
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'ADD_TODO':
-      return {
-        todos: [...state.todos, { text: action.text, completed: false }],
-      };
-    case 'TOGGLE_TODO':
-      return {
-        todos: state.todos.map((todo, index) =>
-          index === action.index
-            ? { ...todo, completed: !todo.completed }
-            : todo
-        ),
-      };
-    case 'REMOVE_TODO':
-      return {
-        todos: state.todos.filter((_, index) => index !== action.index),
-      };
-    default:
-      return state;
-  }
-};
+import React,{useReducer,useState} from 'react'
 
-function TodoList() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+function reducer (curr_state,action){
+        switch (action.type) {
+            case 'ADD':
+              return [...curr_state,{text:action.text,isChecked:false}]
+            case 'DELETE':
+              let arr = [...curr_state]
+              let newArr = arr.filter((itm,ind)=>ind != action.index)
+              return [...newArr]
+            case 'MARK':
+              let arrMark = [...curr_state]
+              let newArrMark= arrMark.map((itm,ind)=>{
+                // if (ind==action.index) {
+                //   return {...itm,isChecked:action.isChecked}
+                // }else{
+                //   return itm
+                // }
+                return ind==action.index ? {...itm,isChecked:action.isChecked} : itm
+              })
+              return [...newArrMark]
+            default:
+              return curr_state
+        }
+}
+function UseReducer() {
+    const [state, dispatch] = useReducer(reducer,[])
+    const [inputText, setInputText] = useState('');
 
-  const addTodo = (text) => {
-    dispatch({ type: 'ADD_TODO', text });
-  };
+    function addTodo() {
+      dispatch({type:'ADD',text:inputText.trim()})
+      setInputText('')
+    }
+    function deleteTodo(index) {
+      dispatch({type:'DELETE',index:index})
+    }
+    function markTodo(isChecked,index) {
+      dispatch({type:'MARK',isChecked:isChecked,index:index})
+    }
 
-  const toggleTodo = (index) => {
-    dispatch({ type: 'TOGGLE_TODO', index });
-  };
-
-  const removeTodo = (index) => {
-    dispatch({ type: 'REMOVE_TODO', index });
-  };
-
-  return (
+  return ( 
     <div>
-      <ul>
-        {state.todos.map((todo, index) => (
-          <li key={index}>
-            <span
-              onClick={() => toggleTodo(index)}
-              style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
-            >
-              {todo.text}
-            </span>
-            <button onClick={() => removeTodo(index)}>Remove</button>
-          </li>
-        ))}
+      <ul className='text-white'>
+        {
+          state.map((item,index)=>(
+            <li key={index}>
+              <input type="checkbox" onClick={(e)=>{markTodo(e.target.checked,index)}} />
+              <span style={{ textDecoration: item.isChecked ? "line-through" : "none" }}>{item.text}</span>
+              <button className="btn p-0 m-1 bg-danger" onClick={()=>deleteTodo(index)}>delete</button>
+            </li>
+          ))
+        }
       </ul>
-      <input
-        type="text"
-        placeholder="Add todo"
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' && e.target.value.trim() !== '') {
-            addTodo(e.target.value.trim());
-            e.target.value = '';
-          }
-        }}
-      />
+      <input type="text" value={inputText}  onChange={(e)=>{setInputText(e.target.value)}}/>
+      <button className="btn bg-primary" onClick={addTodo}>Add</button>
     </div>
-  );
+  )
 }
 
-export default TodoList;
+export default UseReducer
+
+
 
 
