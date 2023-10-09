@@ -1,12 +1,11 @@
 import React from 'react';
 
-function Table(props) {
-    let arrOfAllData = props.arrOfAllData
+function Table({forSearchArr,arrOfAllData,forDelete,forEdit}) {
     const deleter =(id) =>{
-        // props.forDelete(id)
+        forDelete(id)
     }
     const editer = (id) => {
-        // props.forEdit(id)
+        forEdit(id)
     }
   return ( 
     <>

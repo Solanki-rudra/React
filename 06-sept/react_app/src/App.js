@@ -38,7 +38,9 @@ import UseReducer from './components/UseReducer';
 import Formik from './Formik.js';
 import Debouncing from './Debouncing';
 
+// import ExamPrepCrud from './ExamPrepCrud/ExamPrepCrud';
 import ExamPrepCrud from './ExamPrepCrud/ExamPrepCrud';
+import HomePage from './Exam-9-oct/HomePage'
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -81,7 +83,9 @@ function App() {
         {/* <UseReducer /> */}
         {/* <Formik /> */}
         {/* <Debouncing /> */}
-        <ExamPrepCrud />
+        {/* <ExamPrepCrud /> */}
+        <HomePage />
+
       </header>
   );
 }

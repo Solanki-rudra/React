@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
-import SearchInput from './SearchInput';
+// import SearchInput from './SearchInput';
+import SearchInput from './ExamPrepCrud/SearchInput';
 
 function Debouncing() {
     const arr = ['rudra','jhdjfh','Dhrieijh','ujheugs','chanu','bhaumik','prakhar','pujan','sachin','akash']
