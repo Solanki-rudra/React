@@ -12,7 +12,7 @@ input:focus{
     outline: none;
 }
 table{
-    background-color: #212121;
+    background-color: #013941;
     color: rgb(255, 255, 255);
     padding: 15px;
     border: 2px solid black;
@@ -26,7 +26,8 @@ th,td{
     border-right: 1px solid black !important;
 }
 th{
-    background-color: #313131;
+    background-color: #e0a206;
+    color: black;
     text-align: center!important;
 }
 p{

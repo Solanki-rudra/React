@@ -1,7 +1,7 @@
 import React,{useState,useEffect,createContext} from 'react'
 import { 
     Link,
-    useNavigate
+    useNavigate,
  } from "react-router-dom";
 import Table from './Table';
 import ModelConfirmation from './ModelConfirmation';
@@ -17,7 +17,8 @@ function LandingPage() {
     const [idForDelete, setIdForDelete] = useState(null);
     const [idForEdit, setIdForEdit] = useState(null);
     const [objForEdit, setObjForEdit] = useState(null);
-    
+    // const [searchParams,setSearchParams] = useSearchParams()
+
     useEffect(() => {
         getDataFromApi()
     }, []);
@@ -35,11 +36,13 @@ function LandingPage() {
     }
 
     function handleDeleteId(id) {
+        setEditConfShow(false)
         setDeleteConfShow(true)
         setIdForDelete(id)
     }
 
     async function handleEditId(id) {
+        setDeleteConfShow(false)
         // setIdForEdit(id)
         try {
             let response = await fetch(url+id)
@@ -77,37 +80,62 @@ function LandingPage() {
         //     alert(error.message)
         // }
         // console.log(objForEdit)
-        navigate('/add',{replace:true,state:objForEdit}) 
+        // setSearchParams({userId:objForEdit.id})
+        // navigate(`/add?userId=${objForEdit.id}`,{state:objForEdit}) 
+        navigate(`/add/${objForEdit.id}`,{state:objForEdit}) 
         setEditConfShow(false)
     }
+
+    // function handleChangeForSearch(value) {
+    //     let timer;
+    //     clearTimeout(timer)
+    //     timer = setTimeout(() => {
+    //         if(value.trim() !== ''){
+    //             let filterArr= arrOfData.filter((item)=>item.firstname.toLowerCase().includes(value.replaceAll(' ','').toLowerCase()) || item.lastname.toLowerCase().includes(value.replaceAll(' ','').toLowerCase()))
+    //             setArrOfData(filterArr)
+    //         }else{
+    //             getDataFromApi()
+    //         }
+    //     }, 300);
+    // }
 
     function handleChangeForSearch(value) {
         let timer;
         clearTimeout(timer)
-        timer = setTimeout(() => {
-            if(value.trim() !== ''){
-                let filterArr= arrOfData.filter((item)=>item.firstname.toLowerCase().includes(value.replaceAll(' ','').toLowerCase()))
-                setArrOfData(filterArr)
-            }else{
-                getDataFromApi()
+        timer = setTimeout(async () => {
+            try {
+                let response = await fetch(`${url}?q=${value}`)
+                let data = await response.json()
+                setArrOfData(data)
+            } catch (error) {
+                alert(error.message)
             }
         }, 300);
     }
-    function handleEditCancel() {
+
+    function handleConfCancel() {
         setEditConfShow(false)
+        setDeleteConfShow(false)
         setObjForEdit(null)
     }
-
+    const styling = {
+        height : '100vh',
+        display:'flex',
+        flexDirection:'column',
+        alignItems:'center'
+    }
   return (
-    <div>
+    <div className='position-relative bg-gray-600' style={styling}>
         <editObj.Provider value={objForEdit}>
 
-            <Link className='m-1 bg-black p-2' onClick={()=>setEditConfShow(null)} to='/add'>Add</Link>
-            <input type="text" onChange={(e)=>handleChangeForSearch(e.target.value)} placeholder='Search...' />
+            <div className='mt-4'>
+              <input type="text" className='pl-2' onChange={(e)=>handleChangeForSearch(e.target.value)} placeholder='Search...' />
+              <Link className='m-1 bg-warning p-2 rounded text-black text-decoration-none' onClick={()  =>setEditConfShow (null)} to='/add'>Add</Link>
+            </div>
 
-            <ModelConfirmation show={deleteConfShow} title='Are you sure for delete?' onConfirm=    {handleConfirmForDelete} onCancel={()=>setDeleteConfShow(false)}/>
+            <ModelConfirmation show={deleteConfShow} title='Are you sure for delete?' onConfirm=    {handleConfirmForDelete} onCancel={handleConfCancel}/>
 
-            <ModelConfirmation show={editConfShow} title='Are you sure for edit?' onConfirm={handleConfirmForEdit}  onCancel={handleEditCancel}/>
+            <ModelConfirmation show={editConfShow} title='Are you sure for edit?' onConfirm={handleConfirmForEdit}  onCancel={handleConfCancel}/>
 
             <Table arrOfData={arrOfData} deleteId={handleDeleteId} editId={handleEditId}/>
 

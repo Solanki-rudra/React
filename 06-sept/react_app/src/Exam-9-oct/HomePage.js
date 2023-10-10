@@ -1,6 +1,7 @@
 import React from 'react'
 import Form from './Form';
 import LandingPage from './LandingPage';
+import Data from './Data';
 import { 
     Routes,
     Route,
@@ -11,10 +12,12 @@ function HomePage() {
     <div>
       <Routes> 
             <Route path="/" element={<LandingPage />} />
-            <Route path="/add" element={<Form />} />
+            <Route path="add" element={<Form />} >
+              <Route path=":useId" element={<Form />} />
+            </Route>
      </Routes>
     </div>
   )
-}
+} 
 
 export default HomePage

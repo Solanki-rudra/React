@@ -9,7 +9,7 @@ function Table({arrOfData,deleteId,editId}) {
     }
   return (
     <div>
-      <table>
+      <table className='w-100 '>
         <thead>
             <tr>
                 <th>no.</th>
@@ -31,8 +31,8 @@ function Table({arrOfData,deleteId,editId}) {
                         <td>{item.email}</td>
                         <td>{item.phone}</td>
                         <td>{item.password}</td>
-                        <td><button className=' bg-success' onClick={()=>{editer(item.id)}}>Edit</button>
-                        <button className=' bg-danger' onClick={()=>{deleter(item.id)}}>Delete</button></td>
+                        <td><button className=' bg-success rounded' onClick={()=>{editer(item.id)}}>Edit</button>
+                        <button className=' bg-danger rounded' onClick={()=>{deleter(item.id)}}>Delete</button></td>
                     </tr>
                 })
             }
