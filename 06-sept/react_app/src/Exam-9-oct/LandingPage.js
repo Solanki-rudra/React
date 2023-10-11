@@ -82,36 +82,49 @@ function LandingPage() {
         // console.log(objForEdit)
         // setSearchParams({userId:objForEdit.id})
         // navigate(`/add?userId=${objForEdit.id}`,{state:objForEdit}) 
-        navigate(`/add/${objForEdit.id}`,{state:objForEdit}) 
+        navigate(`/add/${objForEdit.id}`) 
         setEditConfShow(false)
     }
 
     // function handleChangeForSearch(value) {
     //     let timer;
     //     clearTimeout(timer)
-    //     timer = setTimeout(() => {
-    //         if(value.trim() !== ''){
-    //             let filterArr= arrOfData.filter((item)=>item.firstname.toLowerCase().includes(value.replaceAll(' ','').toLowerCase()) || item.lastname.toLowerCase().includes(value.replaceAll(' ','').toLowerCase()))
-    //             setArrOfData(filterArr)
-    //         }else{
-    //             getDataFromApi()
+    //     timer = setTimeout(async () => {
+    //         console.log(value)
+    //         try {
+    //             let response = await fetch(`${url}?q=${value}`)
+    //             let data = await response.json()
+    //             setArrOfData(data)
+    //         } catch (error) {
+    //             alert(error.message)
     //         }
-    //     }, 300);
+    //     }, 500);
     // }
 
-    function handleChangeForSearch(value) {
+    function debounce(func, delay) {
         let timer;
-        clearTimeout(timer)
-        timer = setTimeout(async () => {
-            try {
-                let response = await fetch(`${url}?q=${value}`)
-                let data = await response.json()
-                setArrOfData(data)
-            } catch (error) {
-                alert(error.message)
-            }
-        }, 300);
-    }
+        return function () {
+          clearTimeout(timer);
+          timer = setTimeout(() => {
+            // console.log('this ' + this) //undefined
+            func.apply(this, arguments);
+          }, delay);
+        };
+      }
+      const debouncedHandleChange = debounce(handleChangeForSearch, 300);
+
+      async function handleChangeForSearch(value) {
+        // console.log(value);
+        try {
+          let response = await fetch(`${url}?q=${value}`);
+          let data = await response.json();
+          setArrOfData(data);
+        } catch (error) {
+          alert(error.message);
+        }
+      }
+      
+ 
 
     function handleConfCancel() {
         setEditConfShow(false)
@@ -129,11 +142,11 @@ function LandingPage() {
         <editObj.Provider value={objForEdit}>
 
             <div className='mt-4'>
-              <input type="text" className='pl-2' onChange={(e)=>handleChangeForSearch(e.target.value)} placeholder='Search...' />
+              <input type="text" className='pl-2' onChange={(e)=>debouncedHandleChange(e.target.value)} placeholder='Search...' />
               <Link className='m-1 bg-warning p-2 rounded text-black text-decoration-none' onClick={()  =>setEditConfShow (null)} to='/add'>Add</Link>
             </div>
 
-            <ModelConfirmation show={deleteConfShow} title='Are you sure for delete?' onConfirm=    {handleConfirmForDelete} onCancel={handleConfCancel}/>
+            <ModelConfirmation show={deleteConfShow} title='Are you sure for delete?' onConfirm={handleConfirmForDelete} onCancel={handleConfCancel}/>
 
             <ModelConfirmation show={editConfShow} title='Are you sure for edit?' onConfirm={handleConfirmForEdit}  onCancel={handleConfCancel}/>
 

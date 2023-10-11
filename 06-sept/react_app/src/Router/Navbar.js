@@ -8,7 +8,7 @@ function navbar() {
     return{
       color: isActive ? 'red' : 'white'
     }
-  }
+  } 
   return (
     <>
       <Navbar bg="dark" data-bs-theme="dark">
@@ -20,6 +20,7 @@ function navbar() {
             <NavLink style={activer} className='m-1' to="/contact">Contact</NavLink>
             <NavLink style={activer} className='m-1' to="/learn">Learn</NavLink>
           </Nav>
+          <Link className="btn bg-primary" to='/login'>Login</Link>
         </Container>
       </Navbar>
     </>

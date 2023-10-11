@@ -3,6 +3,8 @@ import Navbar from './Navbar'
 import About from './About';
 import Contact from './Contact';
 import Home2 from './Home2';
+import PageNotFound from './PageNotFound';
+import Login from './Login';
 import { 
   Routes,
   useParams,
@@ -20,7 +22,7 @@ function Home() {
             <Route path="/" element={<Home2 />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="*" element={<PageNotFound />} />
             <Route path="/learn" element={<Learn />} >
               <Route path='javaScript' element={<JavaScript />}></Route>
               <Route path=':courseId' element={<Course />}></Route>
@@ -29,6 +31,7 @@ function Home() {
                 <Route path='nextJs' element={<NextJs />}></Route>
               </Route>
             </Route> 
+            <Route path="/login" element={<Login />} />
         </Routes>
     </div>
   )
@@ -76,7 +79,7 @@ function ReactNative(){
     <>
       <h1>React-Native Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste reprehenderit itaque odit sequi debitis hic fugiat delectus reiciendis veniam ut.</h1>
     </>
-  )
+  ) 
 }
 
 function NextJs(){

@@ -1,7 +1,7 @@
 import React from 'react'
 import Form from './Form';
 import LandingPage from './LandingPage';
-import Data from './Data';
+import PagenotFound from './PagenotFound.js';
 import { 
     Routes,
     Route,
@@ -15,9 +15,9 @@ function HomePage() {
             <Route path="add" element={<Form />} >
               <Route path=":useId" element={<Form />} />
             </Route>
+            <Route path="*" element={<PagenotFound />} />
      </Routes>
     </div>
   )
 } 
-
 export default HomePage
