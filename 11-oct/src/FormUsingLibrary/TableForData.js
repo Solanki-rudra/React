@@ -2,7 +2,7 @@ import React from 'react'
 
 function TableForData({dataForPrint,forDeleteId,forEditId}) {
   return (
-    <div>
+    <div className="tableWraper m-auto bg-success p-5 rounded">
       <table>
         <thead>
             <tr>
@@ -18,14 +18,14 @@ function TableForData({dataForPrint,forDeleteId,forEditId}) {
             {
                 dataForPrint.map((item,index)=>(
                     <tr key={index}>
-                        <td>{index+1}</td>
+                        <td className='text-center'>{index+1}</td>
                         <td>{item.name}</td>
-                        <td>{item.number}</td>
+                        <td className='text-center'>{item.number}</td>
                         <td>{item.password}</td>
-                        <td>{item.dateOfBirth}</td>
-                        <td>
-                            <button className="btn bg-primary mx-1" onClick={()=>{forEditId(item.id)}}>Edit</button>
-                            <button className="btn bg-danger mx-1" onClick={()=>{forDeleteId(item.id)}}>Delete</button>
+                        <td className='text-center'>{item.dateOfBirth}</td>
+                        <td className='text-center'>
+                            <button className="btn bg-success mx-1" onClick={()=>{forEditId(item.id)}}>Edit</button>
+                            <button className="btn bg-success mx-1" onClick={()=>{forDeleteId(item.id)}}>Delete</button>
                         </td>
                     </tr>
                 ))

@@ -4,29 +4,50 @@ import {
     useNavigate
  } from "react-router-dom";
 import TableForData from './TableForData';
-import Notification from './Notification';
 import ConfirmationModel from './ConfirmationModel';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const url = 'http://localhost:3200/comments/'
 
 function LandingPage() {
-  const [dataForPrint, setDataForPrint] = useState([]);
   const navigate = useNavigate()
-  // const [notification, dispatch] = useReducer(reducer,[])
-  const [showNotification, setShowNotification] = useState(false);
+  const [dataForPrint, setDataForPrint] = useState([]);
   const [deleteConfirmationId, setDeleteConfirmationId] = useState(null);
+
   useEffect(() => {
     getDataFromApi()
   }, []);
+
   async function getDataFromApi() {
     try {
       let response = await fetch(url)
-      let data= await response.json()
-      setDataForPrint(data)
-      // setShowNotification(true)
+      if (response.ok) {
+        let data= await response.json()
+        setDataForPrint(data)
+        showNotification()
+      }else{
+        throw new Error('Failed to get Data')
+      }
     } catch (error) {
-      alert(error.message)
+        toast.error(error.message,{
+          position:'top-center',
+          autoClose: 2000,
+        });
     }
   }
+
+  function showNotification() {
+    const getNotification = JSON.parse(localStorage.getItem('notification'));
+    if (getNotification) {
+      toast[getNotification.type](getNotification.message, {
+        position: 'top-center',
+        autoClose: 2000,
+      });
+      localStorage.removeItem('notification');
+    }
+  }
+
   async function handleDelete() {
     try {
       let response = await fetch(url+deleteConfirmationId,{
@@ -37,32 +58,29 @@ function LandingPage() {
       });
       if (response.ok) {
         getDataFromApi()
-        setShowNotification(true)
+        toast.success('Data deleted successfully',{
+          position:'top-center',
+          autoClose: 2000,
+        });
+      }else{
+        throw new Error('Cant find data')
       }
     } catch (error) {
-      setShowNotification(true)
+      toast.error(error.message,{
+        position:'top-center',
+        autoClose: 2000,
+      });
     }
     setDeleteConfirmationId(false)
   }
-
-  async function handelEdit(id){
-    navigate('/register/'+id)
-    // try {
-    //   let response = await fetch(url+id)
-      
-    // } catch (error) {
-      
-    // }
-  }
-
+  
   return (
     <div>
        {/* <Link to='/add' className='btn bg-warning' >Add Data</Link> */}
-       <Link to='/register' className='btn bg-warning' >Register</Link>
-       <Notification message={'add'} show={showNotification} stayTimeInMs={5000} />
+       <ToastContainer />
+       <Link to='/register' className='m-4 btn bg-warning' >Register</Link>
        <ConfirmationModel title='Are you sure for delete data?' onConfirm={handleDelete} onCancel={()=>{setDeleteConfirmationId(null)}} show={deleteConfirmationId}/>
-       {/* <CommonNotification /> */}
-       <TableForData dataForPrint={dataForPrint} forDeleteId={(id)=>setDeleteConfirmationId(id)} forEditId={handelEdit}/>
+       <TableForData dataForPrint={dataForPrint} forDeleteId={(id)=>setDeleteConfirmationId(id)} forEditId={(id)=>{navigate('/register/'+id)}}/>
     </div>
   )
 }

@@ -5,8 +5,7 @@ import FormForData from './FormForData'
 function Register() {
   return (
     <div>
-    <Link to='/' className='btn bg-warning' >Home</Link>
-      <h1>Register</h1>
+    <Link to='/' className=' m-4 btn bg-warning' >Home</Link>
         <FormForData />
     </div>
   )

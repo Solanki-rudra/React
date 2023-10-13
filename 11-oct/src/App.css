@@ -3,22 +3,53 @@ body{
   color: white;
 }
 table{
-  border: 1px solid white;
-  background-color: #198754;
+  background-color: white;
+  color: #198754;
+  font-weight: bolder;
+  width: 100%;
+  min-width: fit-content;
 }
 th,td{
-  border: 1px solid #313131;
+  border: 1px solid #198754;
   padding: 5px 15px;
   border-radius: 3px;
 }
 th{
   background-color: #FFC107;
-  color: black;
+  color: #198754;
   font-weight: 500;
+  padding: 10px;
   text-align: center;
 }
 .flex{
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+.formWraper{
+  max-width: 600px;
+}
+.tableWraper{
+  height: 80vh;
+  overflow-y: scroll;
+  max-width :80%;
+}
+.row input:focus{
+  outline: none;
+}
+.row input,.password-input{
+  border-radius: 5px;
+  border: none;
+  padding: 5px;
+}
+.row label{
+  padding: 0;
+}
+.row p{
+  padding: 0;
+  font-weight: 600;
+  margin: 0;
+}
+.password-input{
+  width: 95%;
 }
