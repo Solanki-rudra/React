@@ -6,6 +6,9 @@ import Task3 from './Task3';
 import Task4 from './Task4';
 import Task5 from './Task5';
 import Task3Sub from './Task3Sub';
+import Login from './Login';
+import About from './About';
+import ProtectedRoute from './ProtectedRoute';
 import { 
     Routes,
     Route,
@@ -16,13 +19,15 @@ function HomeTask() {
     <div>
       <Routes> 
             <Route path="/" element={<TaskList />} />
-            <Route path="/task1" element={<Task1 />} />
-            <Route path="/task2" element={<Task2 />} />
-            <Route path="task3" element={<Task3 />} >
+            <Route path="/about" element={<About />} />
+            <Route path="/task1" element={<ProtectedRoute Component={Task1} />} />
+            <Route path="/task2" element={<ProtectedRoute Component={Task2} />} />
+            <Route path="task3" element={<ProtectedRoute Component={Task3} />} >
                 <Route path=':taskId' element={<Task3Sub />} />
             </Route>
-            <Route path="/task4" element={<Task4 />} />
-            <Route path="/task5" element={<Task5 />} />
+            <Route path="/task4" element={<ProtectedRoute Component={Task4} />} />
+            <Route path="/task5" element={<ProtectedRoute Component={Task5} />} />
+            <Route path="/login" element={<Login />} />
      </Routes>
     </div>
   )

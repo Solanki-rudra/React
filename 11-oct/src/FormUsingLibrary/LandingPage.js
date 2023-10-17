@@ -25,7 +25,7 @@ function LandingPage() {
       if (response.ok) {
         let data= await response.json()
         setDataForPrint(data)
-        showNotification()
+        // showNotification()
       }else{
         throw new Error('Failed to get Data')
       }
@@ -37,16 +37,16 @@ function LandingPage() {
     }
   }
 
-  function showNotification() {
-    const getNotification = JSON.parse(localStorage.getItem('notification'));
-    if (getNotification) {
-      toast[getNotification.type](getNotification.message, {
-        position: 'top-center',
-        autoClose: 2000,
-      });
-      localStorage.removeItem('notification');
-    }
-  }
+  // function showNotification() {
+  //   const getNotification = JSON.parse(localStorage.getItem('notification'));
+  //   if (getNotification) {
+  //     toast[getNotification.type](getNotification.message, {
+  //       position: 'top-center',
+  //       autoClose: 2000,
+  //     });
+  //     localStorage.removeItem('notification');
+  //   }
+  // }
 
   async function handleDelete() {
     try {
@@ -77,7 +77,7 @@ function LandingPage() {
   return (
     <div>
        {/* <Link to='/add' className='btn bg-warning' >Add Data</Link> */}
-       <ToastContainer />
+       {/* <ToastContainer /> */}
        <Link to='/register' className='m-4 btn bg-warning' >Register</Link>
        <ConfirmationModel title='Are you sure for delete data?' onConfirm={handleDelete} onCancel={()=>{setDeleteConfirmationId(null)}} show={deleteConfirmationId}/>
        <TableForData dataForPrint={dataForPrint} forDeleteId={(id)=>setDeleteConfirmationId(id)} forEditId={(id)=>{navigate('/register/'+id)}}/>

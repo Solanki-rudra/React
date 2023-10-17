@@ -1,27 +1,19 @@
 {
   "comments": [
     {
-      "name": "bhaumik",
-      "number": 9999787878,
-      "password": "787878",
-      "confirmPassword": "787878",
-      "dateOfBirth": "2023-11-02",
-      "id": 7
-    },
-    {
-      "name": "rudra",
+      "name": "bhaumik ",
       "number": 5867675655,
-      "password": "787878",
-      "confirmPassword": "787878",
-      "dateOfBirth": "2023-11-02",
+      "password": "787878Df#434",
+      "confirmPassword": "787878Df#434",
+      "dateOfBirth": "2003-06-17",
       "id": 8
     },
     {
       "name": "sachin",
       "number": 7878787878,
-      "password": "787878",
-      "confirmPassword": "787878",
-      "dateOfBirth": "2023-10-25",
+      "password": "dsf#4FD5",
+      "confirmPassword": "dsf#4FD5",
+      "dateOfBirth": "2002-10-21",
       "id": 9
     },
     {
@@ -39,6 +31,30 @@
       "confirmPassword": "dsfsdfds",
       "dateOfBirth": "2023-10-26",
       "id": 11
+    },
+    {
+      "name": "dhruv",
+      "number": 9898989898,
+      "password": "fudiosfDSfds#$3",
+      "confirmPassword": "fudiosfDSfds#$3",
+      "dateOfBirth": "1999-06-22",
+      "id": 12
+    },
+    {
+      "name": "Dr. dre",
+      "number": 8989898998,
+      "password": "gdfgDFg#$34",
+      "confirmPassword": "gdfgDFg#$34",
+      "dateOfBirth": "2001-02-22",
+      "id": 13
+    },
+    {
+      "name": "snoop dogg",
+      "number": 5656565566,
+      "password": "fdsDSf#423",
+      "confirmPassword": "fdsDSf#423",
+      "dateOfBirth": "2001-02-22",
+      "id": 14
     }
   ]
 }

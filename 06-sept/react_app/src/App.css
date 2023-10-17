@@ -51,3 +51,18 @@ span{
     left: 0;
     right: 0;
 } */
+
+.wraper{
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.cards-container{
+    width: 325px;
+    display: flex;
+    flex-wrap: wrap ;
+}
+.wraper-flip{
+    transform: rotateY(180deg);
+}

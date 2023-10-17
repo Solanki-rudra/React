@@ -8,7 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 const url = "http://localhost:3200/comments/";
 
 function FormForData() {
-  const [isShow, setIsShow] = useState({ pass: false, confPass: false });
+  const [isShowPassword, setIsShowPassword] = useState(false);
+  const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
   const [initialValues, setForUpdateValues] = useState({
     name: "",
     number: "",
@@ -26,47 +27,28 @@ function FormForData() {
   async function getDataFromApi(userId = "") {
     try {
       let response = await fetch(url + userId);
-      // console.log(data)
-      // if(initialValues.id != data.id) {
-      // }
-      // setShowNotification(true)
       if (response.ok) {
         let data = await response.json();
         setForUpdateValues(data);
       } else {
-        throw new Error("some error occurred");
+        navigate("/*");
       }
     } catch (error) {
-      toast.error(error.message, {
-        position: "top-center",
-        autoClose: 2000,
-      });
     }
   }
-  // console.log('this '+ initialValues.id)
   return (
     <div className="formWraper m-auto bg-success p-5 rounded">
-      <ToastContainer />
       <Formik
         initialValues={initialValues}
         validationSchema={RegisterSchema}
         enableReinitialize
         onSubmit={async (values, action) => {
-          // console.log(values)
           let method = "PATCH";
           let id = userId;
           if (!id) {
             method = "POST";
             id = "";
           }
-          // const data = {
-          //   name: values.name,
-          //   number: values.number,
-          //   password: values.password,
-          //   confirmPassword: values.confirmPassword,
-          //   dateOfBirth: values.dateOfBirth,
-          // };
-          // console.log(action)
           try {
             console.log(values);
             let response = await fetch(url + id, {
@@ -77,13 +59,10 @@ function FormForData() {
               body: JSON.stringify(values),
             });
             if (response.ok) {
-              localStorage.setItem(
-                "notification",
-                JSON.stringify({
-                  type: "success",
-                  message: `Data ${id ? "Updated" : "Added"} Successfully`,
-                })
-              );
+              toast.success(`Data ${id ? "Updated" : "Added"} Successfully`, {
+                position: "top-center",
+                autoClose: 2000,
+              });
               navigate("/");
             } else {
               throw new Error("Failed to submit the form");
@@ -106,94 +85,60 @@ function FormForData() {
           touched,
         }) => (
           <form onSubmit={handleSubmit}>
-            <div className="row">
-              <label htmlFor="name">Name</label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.name}
-              />
-              {errors.name && touched.name ? (
-                <p className="text-danger">{errors.name}</p>
-              ) : null}
-            </div>
-            <br />
-            <div className="row">
-              <label htmlFor="number">Number</label>
-              <input
-                id="number"
-                name="number"
-                type="number"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.number}
-              />
-              {errors.number && touched.number ? (
-                <p className="text-danger">{errors.number}</p>
-              ) : null}
-            </div>
-            <br />
-            <div className="row">
-              <label htmlFor="password">Password</label>
-                <div className="col w-100 bg-white password-input p-0">
-                <input
-                className="password-input"
-                id="password"
-                name="password"
-                type={isShow.pass ? "text" : "password"}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password}
-              />
-              <i type="button"
-                onClick={() => setIsShow((pv) => ({ ...pv, pass: !pv.pass }))}
-                 className={!isShow.pass?'fa-eye-slash fa-regular text-success':'fa-eye fa-regular text-success'}></i>
-                </div>
-              {errors.password && touched.password ? (
-                <p className="text-danger">{errors.password}</p>
-              ) : null}
-            </div>
-            <br />
-            <div className="row">
-              <label htmlFor="confirmPassword">Confirm Password</label>
-                <div className="col w-100 bg-white password-input p-0">
-                <input
-                className="password-input"
-                id="confirmPassword"
-                name="confirmPassword"
-                type={isShow.confPass ? "text" : "password"}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.confirmPassword}
-              />
-              <i type="button"
-                onClick={() => setIsShow((pv) => ({ ...pv, confPass: !pv.confPass }))}
-                 className={!isShow.confPass?'fa-eye-slash fa-regular text-success':'fa-eye fa-regular text-success'}></i>
-                </div>
+            <Inputs
+              handleBlur={handleBlur}
+              handleChange={handleChange}
+              id="name"
+              type="text"
+              values={values}
+              errors={errors}
+              touched={touched}
+            />
 
-              {errors.confirmPassword && touched.confirmPassword ? (
-                <p className="text-danger">{errors.confirmPassword}</p>
-              ) : null}
-            </div>
-            <br />
-            <div className="row">
-              <label htmlFor="dateOfBirth">DOB</label>
-              <input
-                id="dateOfBirth"
-                name="dateOfBirth"
-                type="date"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.dateOfBirth}
-              />
-              {errors.dateOfBirth && touched.dateOfBirth ? (
-                <p className="text-danger">{errors.dateOfBirth}</p>
-              ) : null}
-            </div>
-            <br />
+            <Inputs
+              handleBlur={handleBlur}
+              handleChange={handleChange}
+              id="number"
+              type="number"
+              values={values}
+              errors={errors}
+              touched={touched}
+            />
+
+            <Inputs
+              handleBlur={handleBlur}
+              handleChange={handleChange}
+              id="password"
+              type={isShowPassword ? "text" : "password"}
+              values={values}
+              errors={errors}
+              touched={touched}
+              isShow={isShowPassword}
+              setIsShow={setIsShowPassword}
+            />
+
+            <Inputs
+              handleBlur={handleBlur}
+              handleChange={handleChange}
+              id="confirmPassword"
+              type={isShowConfirmPassword ? "text" : "password"}
+              values={values}
+              errors={errors}
+              touched={touched}
+              isShow={isShowConfirmPassword}
+              setIsShow={setIsShowConfirmPassword}
+            />
+
+            <Inputs
+              handleBlur={handleBlur}
+              handleChange={handleChange}
+              id="dateOfBirth"
+              type="date"
+              values={values}
+              errors={errors}
+              touched={touched}
+            />
+
             <button className="btn bg-warning" type="submit">
               {userId ? "Update" : "Submit"}
             </button>
@@ -204,3 +149,44 @@ function FormForData() {
   );
 }
 export default FormForData;
+
+function Inputs({
+  handleBlur,
+  handleChange,
+  id,
+  type,
+  values,
+  errors,
+  touched,
+  isShow,
+  setIsShow,
+}) {
+  return (
+    <>
+      <div className="row">
+        <label htmlFor={id}>{id}</label>
+        <input
+          id={id}
+          name={id}
+          type={type}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values[id]}
+        />
+        {
+          (id === 'password' || id === 'confirmPassword') && (
+            <i
+              type="button"
+              onClick={() => setIsShow(!isShow)}
+              className={!isShow ? 'fa-eye-slash fa-regular text-end text-warning' : 'fa-eye fa-regular text-warning text-end'}
+            ></i>
+          )
+        }
+        {errors[id] && touched[id] ? (
+          <p className="text-danger">{errors[id]}</p>
+        ) : null}
+      </div>
+      <br />
+    </>
+  );
+}

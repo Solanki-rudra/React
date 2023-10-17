@@ -42,6 +42,7 @@ import Debouncing from './Debouncing';
 import ExamPrepCrud from './ExamPrepCrud/ExamPrepCrud';
 import HomePage from './Exam-9-oct/HomePage'
 
+
 function App() {
   // const [count, setCount] = useState(0);
   // const getData =(name)=>{
@@ -76,7 +77,7 @@ function App() {
         {/* <Practice20sept /> */}
         {/* <Home /> */}
         {/* <MedicineIndex /> */}
-        {/* <HomeTask /> */}
+        <HomeTask />
         {/* <Contex /> */}
         {/* <UsememoPrac /> */}
         {/* <UseCallback /> */}
@@ -84,8 +85,8 @@ function App() {
         {/* <Formik /> */}
         {/* <Debouncing /> */}
         {/* <ExamPrepCrud /> */}
-        <HomePage />
-
+        {/* <HomePage /> */}
+        {/* <FlipGame /> */}
       </header>
   );
 }
