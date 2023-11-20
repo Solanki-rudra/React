@@ -33,7 +33,7 @@
       "id": 11
     },
     {
-      "name": "dhruv",
+      "name": "Dhruv",
       "number": 9898989898,
       "password": "fudiosfDSfds#$3",
       "confirmPassword": "fudiosfDSfds#$3",
@@ -47,14 +47,6 @@
       "confirmPassword": "gdfgDFg#$34",
       "dateOfBirth": "2001-02-22",
       "id": 13
-    },
-    {
-      "name": "snoop dogg",
-      "number": 5656565566,
-      "password": "fdsDSf#423",
-      "confirmPassword": "fdsDSf#423",
-      "dateOfBirth": "2001-02-22",
-      "id": 14
     }
   ]
 }

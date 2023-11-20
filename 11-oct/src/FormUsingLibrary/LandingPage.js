@@ -14,6 +14,7 @@ function LandingPage() {
   const navigate = useNavigate()
   const [dataForPrint, setDataForPrint] = useState([]);
   const [deleteConfirmationId, setDeleteConfirmationId] = useState(null);
+  const [isRunDelete, setIsRunDelete] = useState(false);
 
   useEffect(() => {
     getDataFromApi()
@@ -25,7 +26,6 @@ function LandingPage() {
       if (response.ok) {
         let data= await response.json()
         setDataForPrint(data)
-        // showNotification()
       }else{
         throw new Error('Failed to get Data')
       }
@@ -36,48 +36,40 @@ function LandingPage() {
         });
     }
   }
-
-  // function showNotification() {
-  //   const getNotification = JSON.parse(localStorage.getItem('notification'));
-  //   if (getNotification) {
-  //     toast[getNotification.type](getNotification.message, {
-  //       position: 'top-center',
-  //       autoClose: 2000,
-  //     });
-  //     localStorage.removeItem('notification');
-  //   }
-  // }
-
   async function handleDelete() {
-    try {
-      let response = await fetch(url+deleteConfirmationId,{
-        method: 'DELETE',
-        headers:{
-          "Content-Type": "application/json"
+    if(!isRunDelete){
+      setIsRunDelete(true)
+      try {
+        let response = await fetch(url+deleteConfirmationId,{
+          method: 'DELETE',
+          headers:{
+            "Content-Type": "application/json"
+          }
+        });
+        if (response.ok) {
+          getDataFromApi()
+          toast.success('Data deleted successfully',{
+            position:'top-center',
+            autoClose: 2000,
+          });
+        }else{
+          throw new Error('Cant find data')
         }
-      });
-      if (response.ok) {
-        getDataFromApi()
-        toast.success('Data deleted successfully',{
+      } catch (error) {
+        toast.error(error.message,{
           position:'top-center',
           autoClose: 2000,
         });
-      }else{
-        throw new Error('Cant find data')
+      } 
+      finally{
+        setIsRunDelete(false)
+        setDeleteConfirmationId(false)
       }
-    } catch (error) {
-      toast.error(error.message,{
-        position:'top-center',
-        autoClose: 2000,
-      });
     }
-    setDeleteConfirmationId(false)
   }
   
   return (
     <div>
-       {/* <Link to='/add' className='btn bg-warning' >Add Data</Link> */}
-       {/* <ToastContainer /> */}
        <Link to='/register' className='m-4 btn bg-warning' >Register</Link>
        <ConfirmationModel title='Are you sure for delete data?' onConfirm={handleDelete} onCancel={()=>{setDeleteConfirmationId(null)}} show={deleteConfirmationId}/>
        <TableForData dataForPrint={dataForPrint} forDeleteId={(id)=>setDeleteConfirmationId(id)} forEditId={(id)=>{navigate('/register/'+id)}}/>
