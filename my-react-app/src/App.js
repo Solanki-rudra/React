@@ -6,11 +6,13 @@ import Todos from './components/Todos';
 import { useState } from 'react';
 import Weather from './feature/weather/Weather';
 import Home from './GameAVG/Home';
+import TicToe from './Tic-Toe/TicToe';
+import Cursor from './cursor/Cursor';
 
 function App() {
   const [forEdit, setForEdit] = useState(null);
   return (
-    <div className="App bg-gray-700 text-white ">
+    <div className="App bg-gray-700 text-white">
       {/* <header className="App-header ">
         <Cart />
         <h1>HeLLO</h1>
@@ -19,7 +21,9 @@ function App() {
       <Details />
       </header> */}
       {/* <Weather /> */}
-      <Home />
+      {/* <Home /> */}
+      <TicToe />
+      {/* <Cursor /> */}
     </div>
   );
 }

@@ -7,7 +7,7 @@ const initialPlayers = (totalPlayers) => {
 }
 
 const initialState ={
-    players :initialPlayers(6),   
+    players :initialPlayers(3),   
     averageValue:null,
 }
 
@@ -20,7 +20,7 @@ export const gameSlice = createSlice({
             // console.log('playerResult')
             let sum = state.players.reduce((acc,itm)=>acc+Number(itm.number),0)
             let avg = sum/state.players.length
-            console.log(avg)
+            // console.log(avg)
             state.averageValue = avg
             state.players.sort((a, b) => Math.abs(Number(a.number) - avg) - Math.abs(Number(b.number) - avg))
             // console.log(state.players)
@@ -46,17 +46,21 @@ export const gameSlice = createSlice({
 
             // console.log(state.players)
         },
+        totalPlayers: (state,action) => {
+            // console.log(action)
+            return {...initialState , players:initialPlayers(Number(action.payload))}
+        },
         clearData : (state,action)=>{
             // state.players = Array(state.totalPlayers).fill(0).map((itm,ind)=>{
             //      return {id:ind+1,name:'player-'+(ind+1),number:null}
             // })
-            console.log('clearDate'+ JSON.stringify(initialState))
+            // console.log('clearDate'+ JSON.stringify(initialState))
             return initialState
             // console.log(state)
         }
     }
 })
 
-export const { playersResult , playerUpdate, clearData } = gameSlice.actions
+export const { playersResult , playerUpdate, clearData, totalPlayers } = gameSlice.actions
 
 export default gameSlice.reducer
