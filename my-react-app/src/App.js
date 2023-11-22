@@ -8,11 +8,12 @@ import Weather from './feature/weather/Weather';
 import Home from './GameAVG/Home';
 import TicToe from './Tic-Toe/TicToe';
 import Cursor from './cursor/Cursor';
+import FlipGame from './flip_game/FlipGame';
 
 function App() {
   const [forEdit, setForEdit] = useState(null);
   return (
-    <div className="App bg-gray-700 text-white">
+    <div className="App bg-gray-700 text-white justify-around sm:flex p-5 ">
       {/* <header className="App-header ">
         <Cart />
         <h1>HeLLO</h1>
@@ -23,6 +24,7 @@ function App() {
       {/* <Weather /> */}
       {/* <Home /> */}
       <TicToe />
+      <FlipGame />
       {/* <Cursor /> */}
     </div>
   );

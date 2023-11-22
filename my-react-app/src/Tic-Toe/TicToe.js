@@ -1,16 +1,22 @@
 import React,{useState} from 'react'
 
 function TicToe() {
+    const chhotibachi_meme = new Audio('/sounds/chhotibachi.mp3'); 
+    const yehboy_meme = new Audio('/sounds/yehboy.mp3'); 
     const [squareValues, setsquareValues] = useState(Array(9).fill(null));
     const [isXPlay, setIsXPlay] = useState(true);
 
     const winnerName = winner(squareValues)
     let status;
     if(winnerName){
+        yehboy_meme.playbackRate = 1;
+        yehboy_meme.play()
         status = 'Winner is '+ winnerName
     }else{
         let isDraw = squareValues.some(itm=>!itm)
-        status = !isDraw ? 'Match Draw!!' : 'Next Player - '+ (isXPlay ? 'X' : 'O')
+        chhotibachi_meme.playbackRate = 2;
+        if (!isDraw) chhotibachi_meme.play()
+        status = !isDraw ? 'Match Draw!!'  : 'Next Player - '+ (isXPlay ? 'X' : 'O')
     }
 
     function handleClick(index) {

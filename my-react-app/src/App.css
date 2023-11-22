@@ -6,6 +6,16 @@
   text-align: center;
   /* cursor: none; */
 }
+.rotate-open {
+  transition: 0.7s;
+  transform: rotateY(-180deg);
+}
+
+.rotate-closed {
+  transition: 0.7s;
+  transform: rotateY(180deg);
+}
+
 
 .App-logo {
   height: 40vmin;
