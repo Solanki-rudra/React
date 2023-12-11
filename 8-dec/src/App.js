@@ -1,6 +1,5 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import Login from './components/Login';
 import Register from './components/Register';
 import WelcomePage from './components/WelcomePage';
 import { AppContainer } from './components/StyledComponent';
@@ -14,8 +13,7 @@ function App() {
     <AppContainer>
        <ToastContainer autoClose={1000} />
       <Routes>
-        <Route  path='/' element={<WelcomePage setMobile={setMobile}/>} />
-        <Route  path='/login' element={<Login />} />
+        <Route  path='/' element={<WelcomePage setMobile={setMobile} mobile={mobile}/>} />
         <Route path='/register' element={<Register mobile={mobile}/>} />
       </Routes>
     </AppContainer>

@@ -1,36 +1,45 @@
-// OtpFields.js
-import React, { useRef } from 'react';
-import { OtpInput, Label } from './StyledComponent'; 
+import React, { useState, useEffect } from 'react';
+import { OtpInput, Label } from './StyledComponent';
 
-const createRefsArray = (length) => Array(length).fill(null).map(() => useRef(null));
+const OtpFields = ({ handleBlur, otp, isNumber }) => {
+  const [otpValue, setOtpValue] = useState(Array(6).fill(null));
 
-const OtpFields = ({ values, handleChange, handleBlur, }) => {
-  const otpRefs = useRef(createRefsArray(6));
+  useEffect(() => {
+    otp(otpValue);
+  }, [otpValue, otp]);
+
+  useEffect(() => {
+    if (!isNumber) {
+      setOtpValue(Array(6).fill(null));
+    }
+  }, [isNumber]);
+
   function handleOtpChange(value, index, event) {
-    console.log(value);
+    setOtpValue([...otpValue.map((itm, ind) => (ind === index ? value : itm))]);
     if (event.key === 'Backspace' && index > 0) {
-      if (value.length === 0) {
-        otpRefs.current[index - 1].current.focus();
+      if (!value) {
+        event.target.previousSibling.focus();
       }
-    } else if (value && index < otpRefs.current.length - 1) {
-      otpRefs.current[index + 1].current.focus();
+    } else if (value && index < otpValue.length - 1) {
+      event.target.nextSibling.focus();
     }
   }
 
   return (
     <div>
-      <Label color='black'>Enter OTP to verify</Label>
-      {Array(6).fill(null).map((_, index) => (
+      <Label color="black">Enter OTP to verify</Label>
+      {otpValue.map((_, index) => (
         <OtpInput
           key={index}
-          maxLength='1'
+          maxLength="1"
           onChange={(e) => {
-            handleChange(`otp[${index}]`)(e);
             handleOtpChange(e.target.value, index, e);
           }}
-          onBlur={handleBlur(`otp[${index}]`)}
-          value={values.otp[index]}
-          ref={otpRefs.current[index]}
+          onKeyDown={(e) => {
+            handleOtpChange(otpValue[index], index, e);
+          }}
+          onBlur={handleBlur}
+          value={otpValue[index] ? otpValue[index] : ''}
         />
       ))}
     </div>

@@ -1,4 +1,4 @@
-import React, { useRef,useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import { Formik } from 'formik';
 import {useNavigate} from 'react-router'
 import { Button, Div, TextButton,Input, FormWraper, OtpInput, Title, Label } from './StyledComponent';
@@ -9,38 +9,37 @@ import OtpFields from './OtpFields'
 import * as Yup from 'yup';
 import {MobileValidation} from './Validation.js'
 
-const createRefsArray = (length) => Array(length).fill(null).map(() => useRef(null));
-
 const Register = ({ mobile }) => {
   const navigate = useNavigate()
-  const [isNumber, setIsNumber] = useState(!mobile?true:false);
+  const [isNumber, setIsNumber] = useState(!mobile);
+  const [otp, setOtp] = useState(null);
   const [mobileNumber, setMobileNumber] = useState(mobile);
-  const otpRefs = useRef(createRefsArray(6));
 
-  function handleOtpChange(value, index, event) {
-    console.log(value);
-    if (event.key === 'Backspace' && index > 0) {
-      if (value.length === 0) {
-        otpRefs.current[index - 1].current.focus();
+  function handleSubmitMobile() {
+    if(otp.join('').length !== 6) return 
+    console.log(VALUES.otp === otp.join(''))
+      if(VALUES.otp === otp.join('')){
+        toast.success('Successfully Registered')
+      }else{
+        toast.error('Wrong OTP')
       }
-    } else if (value && index < otpRefs.current.length - 1) {
-      otpRefs.current[index + 1].current.focus();
-    }
   }
 
+  
   return (
     <div>
       <FormWraper>
        {isNumber ?  <Title>Register</Title> : <TextButton onClick={()=>setIsNumber(true)}>Change</TextButton>}
-
         <Formik
-          initialValues={{ otp: Array(6).fill(''), phone:'' }}
+          initialValues={{ phone:'' }}
           validationSchema={Yup.object({ phone: MobileValidation })}
           onSubmit={(values, { setSubmitting }) => {
-            console.log(values.otp.join(''));
-            // console.log(VALUES.otp === values.otp.join(''))
-            if(!isNumber){
-              if(VALUES.otp === values.otp.join('')){
+            console.log(otp)
+            // console.log(values.otp.join(''));
+            if(otp.join('').length !== 6) return 
+            console.log(VALUES.otp === otp.join(''))
+            if(isNumber){
+              if(VALUES.otp === otp.join('')){
                 toast.success('Successfully Registered')
               }else{
                 toast.error('Wrong OTP')
@@ -50,7 +49,7 @@ const Register = ({ mobile }) => {
                 setMobileNumber(values.phone)
                 setIsNumber(false)
             }
-          }}
+          }}  
         >
           {({
             values,
@@ -60,7 +59,6 @@ const Register = ({ mobile }) => {
             handleBlur,
             handleSubmit,
             isSubmitting,
-            
           }) => (
             <Div as={"form"} onSubmit={handleSubmit}>
               <Label color='black'> Mobile Number</Label>
@@ -73,35 +71,20 @@ const Register = ({ mobile }) => {
                   name="phone"
                   onChange={handleChange}
                   onFocus={handleBlur}
-                  value={values.phone}
+                  value={mobile && values.phone}
                 />
                 {errors && <Label color='red'>{errors["phone"]}</Label>}
                 </>
                  : <Title>{mobileNumber}</Title>
               }
-                {!isNumber && <Label color='black'> Enter OTP to verify</Label>}
-             {!isNumber && Array(6).fill(null).map((_, index) => (
-                  <OtpInput
-                    key={index}
-                    maxLength='1'
-                    onChange={(e) => {
-                      handleChange(`otp[${index}]`)(e);
-                      handleOtpChange(e.target.value, index, e);
-                    }}
-                    onKeyDown={(e) => {
-                      handleOtpChange(values.otp[index], index, e);
-                    }}
-                    onBlur={handleBlur(`otp[${index}]`)}
-                    value={values.otp[index]}
-                    ref={otpRefs.current[index]}
-                  />
-                ))}
-                {/* <OtpFields values={values} handleChange={handleChange} handleBlur={handleBlur} /> */}
-              <Button type="submit">SUBMIT</Button>
+                <OtpFields otp={(value) => setOtp(value)} isNumber={isNumber} />
+             {
+              isNumber ? <Button type="submit">SUBMIT</Button> :  <Button type='button' onClick={ handleSubmitMobile}>SUBMIT</Button>
+             }
             </Div>
           )}
         </Formik>
-          {isNumber &&  <TextButton  onClick={()=>navigate('/')}>Login with password</TextButton>}
+          {!isNumber &&  <TextButton  onClick={()=>navigate('/')}>Login with password</TextButton>}
       </FormWraper>
     </div>
   );

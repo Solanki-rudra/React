@@ -8,17 +8,29 @@ import{useNavigate } from 'react-router';
 import * as Yup from 'yup'
 import {MobileValidation} from './Validation.js'
 
-function WelcomePage({setMobile}) {
+function WelcomePage({setMobile,mobile}) {
     const navigate = useNavigate()
-    const [isNumber, setIsNumber] = useState(false);
+
+    function handleSubmitMobile(values) {
+          if(values.phone) return 
+            if(values.password === VALUES.password){
+                toast.success("Login Successfully")
+            }else{
+                toast.error('Invalid password')
+            }
+    }
+
+    const [isNumber, setIsNumber] = useState(!!mobile);
     const [isPassShow, setIsPassShow] = useState(true);
+    console.log(mobile)
   return (
     <FormWraper>
-      {!isNumber ? <Title>Welcome</Title>:<TextButton    onClick={()=>setIsNumber(false)}>Change</TextButton>}
+      {!isNumber ? <Title>Welcome</Title>:<TextButton onClick={()=>setIsNumber(false)}>Change</TextButton>}
       <Formik
-       initialValues={{ phone : '',password:'' }}
+       initialValues={mobile?{password:''}:{ phone : '',password:'' }}
        validationSchema={Yup.object({ phone: MobileValidation })}
        onSubmit={(values, { setSubmitting }) => {
+        console.log(values)
         if(isNumber){
             console.log(values.password, VALUES.password)
             console.log(values.password === VALUES.password)
@@ -32,7 +44,6 @@ function WelcomePage({setMobile}) {
             setMobile(values.phone)
             VALUES.number !== values.phone && navigate('/register')
         }
-
        }}
      >
        {({
@@ -51,9 +62,9 @@ function WelcomePage({setMobile}) {
              type="number"
              name="phone"
              onChange={handleChange}
-             onBlur={handleBlur}
+             onFocus={handleBlur}
              value={values.phone}
-           /> : <Title>{values.phone}</Title>}
+           /> : <Title>{mobile}</Title>}
             {
                 isNumber &&   <Div> <Label color='black'>Password</Label>
                 <FlexDiv>
@@ -62,16 +73,16 @@ function WelcomePage({setMobile}) {
                   type={isPassShow?'text':'password'}
                   name="password"
                   onChange={handleChange}
-                  onBlur={handleBlur}
+                  onFocus={handleBlur}
                   value={values.password}
                 /><Font onClick={()=>setIsPassShow(pv=>!pv)} className={` fa-solid ${isPassShow?'fa-eye':'fa-eye-slash'} `}></Font>
                 </FlexDiv>
-                </Div>          
+                </Div>     
                
             }
            <br />
-            {errors.phone && touched.phone && <Label color='red'> {errors.phone}</Label>}
-      <Button type="submit">{isNumber ? 'SUBMIT':'NEXT'}</Button>
+            {errors.phone && touched.phone  ? <Label color='red'> {errors.phone}</Label>:null}
+            {mobile && isNumber ?<Button type='button' onClick={()=>handleSubmitMobile(values)}>SUBMIT</Button>:<Button type="submit">{isNumber ? 'SUBMIT':'NEXT'}</Button>}
          </Div>
        )}
      </Formik>
