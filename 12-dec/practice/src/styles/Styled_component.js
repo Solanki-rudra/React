@@ -1,8 +1,9 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Button = styled.button`
   background-color:blue;
   color: white;
+  cursor: pointer;
   width: 100%;
   padding:10px;
   border-radius:7px;
@@ -11,6 +12,10 @@ export const Button = styled.button`
 export const TextButton = styled.button`
   color: blue;
   font-weight: 600;
+  border: none;
+  font-size: 14px;
+  background-color: transparent;
+  cursor: pointer;
 `
 
 export const AppContainer = styled.div`
@@ -37,6 +42,7 @@ text-align:start;
 `
 
 export const Label = styled.p`
+margin-block: 5px;
 color:${props => props.color};
 text-align:start;
 `
@@ -47,17 +53,23 @@ height: 50px;
 border-radius:7px;
 margin:5px;
 text-align:center;
-border:${props=>props.border?props.border:'2px solid gray'}
+border:${props=>props.border?props.border:'2px solid gray'};
+
 `
 
 
 
 export const Input = styled.input`
-    width:100%;
+    width:95%;
     border-radius:7px;
     margin-block:5px;
     padding:10px ;
-    border:${props=>props.border?props.border:'2px solid gray'}
+    border:${props=>props.border?props.border:'2px solid gray'};
+    &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `
 
 export const Div = styled.div`

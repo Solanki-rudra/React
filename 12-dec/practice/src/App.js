@@ -1,11 +1,11 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import Register from './components/Register';
-import { AppContainer } from './style_component/StyledComponent';
+import Register from './files/Register'
+import { AppContainer } from './styles/Styled_component';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {useState} from 'react'
-import Login from './components/Login';
+import {useEffect, useState} from 'react'
+import Login from './files/Login';
 
 function App() {
   const [mobile, setMobile] = useState();

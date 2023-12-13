@@ -7,3 +7,9 @@ export const MobileValidation = Yup.string()
 export const PasswordValidation = Yup.string()
   .trim()
   .required("Password is required");
+
+
+export const OtpValidation =  Yup.string()
+      .matches(/^[0-9]{6}$/, 'Must be a 6-digit number')
+      .required('Required');
+  

@@ -1,13 +1,13 @@
 import React, { useEffect,useState } from 'react';
 import { Formik } from 'formik';
 import {useNavigate} from 'react-router'
-import { Button, Div, TextButton,Input, FormWraper, OtpInput, Title, Label } from './StyledComponent';
+import { Button, Div, TextButton,Input, FormWraper, OtpInput, Title, Label } from '../style_component/StyledComponent.js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import VALUES from './constants';
-import OtpFields from './OtpFields'
+import VALUES from '../constant/constants.js';
+import OtpFields from './OtpFields.jsx'
 import * as Yup from 'yup';
-import {MobileValidation} from './Validation.js'
+import {MobileValidation} from '../schemas/Validation.js'
 
 const Register = ({ mobile }) => {
   const navigate = useNavigate()
@@ -16,9 +16,9 @@ const Register = ({ mobile }) => {
   const [mobileNumber, setMobileNumber] = useState(mobile);
 
   function handleSubmitMobile() {
-    if(otp.join('').length !== 6) return 
-    console.log(VALUES.otp === otp.join(''))
-      if(VALUES.otp === otp.join('')){
+    if(otp.length !== 6) return 
+    console.log(VALUES.otp === otp)
+      if(VALUES.otp === otp){
         toast.success('Successfully Registered')
       }else{
         toast.error('Wrong OTP')
@@ -27,28 +27,20 @@ const Register = ({ mobile }) => {
 
   
   return (
-    <div>
       <FormWraper>
-       {isNumber ?  <Title>Register</Title> : <TextButton onClick={()=>setIsNumber(true)}>Change</TextButton>}
+      <Title>Register</Title>
+       {!isNumber ?<TextButton onClick={()=>setIsNumber(true)}>Change</TextButton>:null}
         <Formik
           initialValues={{ phone:'' }}
           validationSchema={Yup.object({ phone: MobileValidation })}
           onSubmit={(values, { setSubmitting }) => {
-            console.log(otp)
-            // console.log(values.otp.join(''));
-            if(otp.join('').length !== 6) return 
-            console.log(VALUES.otp === otp.join(''))
-            if(isNumber){
-              if(VALUES.otp === otp.join('')){
-                toast.success('Successfully Registered')
-              }else{
-                toast.error('Wrong OTP')
-              }
-            }else{
-                console.log(values.phone)
-                setMobileNumber(values.phone)
-                setIsNumber(false)
+            // if()
+            if(VALUES.number === values.phone){
+              toast.error('this number is already registered')
+              return
             }
+            setMobileNumber(values.phone)
+            setIsNumber(false)
           }}  
         >
           {({
@@ -77,16 +69,15 @@ const Register = ({ mobile }) => {
                 </>
                  : <Title>{mobileNumber}</Title>
               }
-                <OtpFields otp={(value) => setOtp(value)} isNumber={isNumber} />
+                {!isNumber ? <OtpFields otp={(value) => setOtp(value)}  />:null}
              {
-              isNumber ? <Button type="submit">SUBMIT</Button> :  <Button type='button' onClick={ handleSubmitMobile}>SUBMIT</Button>
+              isNumber ? <Button type="submit">NEXT</Button> :  <Button type='button' onClick={ handleSubmitMobile}>SUBMIT</Button>
              }
             </Div>
           )}
         </Formik>
-          {!isNumber &&  <TextButton  onClick={()=>navigate('/')}>Login with password</TextButton>}
+          {/* {!isNumber &&  <TextButton  onClick={()=>navigate('/')}>Login with password</TextButton>} */}
       </FormWraper>
-    </div>
   );
 };
 
