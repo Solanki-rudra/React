@@ -6,25 +6,31 @@ import VALUES from '../constants/constants';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import StartPage from '../components/StartPage'
+import { useNavigate } from 'react-router-dom';
 
-function Register({ mobile }) {
+function Register({ mobile, setMobile }) {
   const [otp, setOtp] = useState('');
+  const navigate = useNavigate()
   const [forRegNumber, setForRegNumber] = useState(mobile);
   const [isClickChange, setIsClickChange] = useState(!!mobile);
   const [otpValidation, setOtpValidation] = useState('');
 
   useEffect(() => {
+    console.log(mobile + 'mm')
     if (VALUES.number === forRegNumber) {
-      toast.success('Number already registered')
+      // toast.success('Number already registered')
+      setMobile(VALUES.number)
+      navigate('/login')
       return
     }
     if (forRegNumber) setIsClickChange(true)
     setOtpValidation('')
+    setMobile('')
   }, [forRegNumber, otp]);
 
   function handleSubmit() {
     if (otp.length < 6) {
-      setOtpValidation('Field Required')
+      setOtpValidation('All OTP-Field Required')
       return
     }
     (otp === VALUES.otp) ? toast.success('Registered success') : toast.error('Incorrect OTP')

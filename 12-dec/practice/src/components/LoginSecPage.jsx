@@ -9,8 +9,10 @@ import { Formik, Form } from "formik";
 import InputPassword from './InputPassword'
 import VALUES from '../constants/constants'
 import OtpField from './OtpField'
+import { useNavigate } from 'react-router-dom';
 
 function LoginSecPage({ number, setIsLogin }) {
+  const navigate = useNavigate()
   const [isLoginWithOTP, setIsLoginWithOTP] = useState(false);
   const [Otp, setOtp] = useState('');
   const [otpValidation, setOtpValidation] = useState('');
@@ -20,12 +22,23 @@ function LoginSecPage({ number, setIsLogin }) {
     setOtpValidation('')
     if (isLoginWithOTP) {
       if (Otp.length < 6) {
-        setOtpValidation('Field Required')
+        setOtpValidation('All OTP-Field Required')
         return
       }
-      (Otp === VALUES.otp) ? toast.success('Login success') : toast.error('Incorrect OTP')
+      if(Otp === VALUES.otp){
+        toast.success('Login success')
+        navigate('/user-roles')
+      } else{
+        toast.error('Incorrect OTP')
+      }
     } else {
-      (values.password === VALUES.password) ? toast.success('Login success') : toast.error('Incorrect Password')
+      
+      if(values.password === VALUES.password){
+        toast.success('Login success')
+        navigate('/user-roles')
+      }else{
+        toast.error('Incorrect Password')
+      }
     }
   }
   useEffect(() => {

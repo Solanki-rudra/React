@@ -1,10 +1,10 @@
 import React from 'react'
 import { Div, Input, Label } from '../styles/Styled_component'
 
-function InputField({type,placeholder,name,handleBlur,handleChange,value}) {
+function InputField({type,placeholder,name,handleBlur,handleChange,value,label='Mobile Number',width='500px'}) {
   return (
-    <Div>
-        <Label color='black'>Mobile Number</Label>
+    <Div width={width}>
+        <Label color='black'>{label}</Label>
       <Input 
             type={type}
             placeholder={placeholder}
